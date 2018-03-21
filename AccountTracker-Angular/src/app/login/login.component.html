@@ -1,0 +1,43 @@
+<div class="login-page" [@routerTransition]>
+	<img src="assets/images/logo.png" width="150px" class="user-avatar" />
+    <div class="row">
+        <div class="col-md-4 push-md-4 login-container">
+
+            <h1>LOGIN TO CONTINUE</h1>
+            <form novalidate role="form" #f="ngForm" (ngSubmit)="f.valid && onLoggedin(f.value)">
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="email" name="username" [(ngModel)]="username" #un="ngModel"
+							class="form-control input-lg" placeholder="Username"
+							required forbiddenName="" autofocus />
+						<div *ngIf="un.invalid && (un.dirty || un.touched)" class="alert alert-danger">
+							<div *ngIf="un.errors.required">
+								Username is required.
+							</div>
+							<div *ngIf="un.hasError('pattern')">
+								Username should be a valid email address only.
+							</div>
+						</div>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" [(ngModel)]="password" #pwd="ngModel"
+												class="form-control input-lg" placeholder="Password"
+												required minlength="4" />
+											<div *ngIf="pwd.invalid && (pwd.touched || f.submitted)" class="alert alert-danger">
+												<div *ngIf="pwd.errors.required">
+													Password is required.
+												</div>
+												<div *ngIf="pwd.hasError('pattern')">
+													Username should contain alphanumeric characters only.
+												</div>
+												<div *ngIf="pwd.errors.minlength">
+													Password should contain at least 4 characters.
+												</div>
+											</div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary login-button" > LOGIN </button>
+            </form>
+        </div>
+			    </div>
+</div>

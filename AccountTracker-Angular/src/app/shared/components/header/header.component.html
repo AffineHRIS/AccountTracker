@@ -1,0 +1,19 @@
+<div class="pos-f-t fixed-top header">
+  <nav class="navbar navbar-inverse bg-inverse navbar-toggleable-md">
+  <img src="assets/images/logo.png" width="150px" class="company-logo" [routerLink]="['/profile', username]" />
+  <div class="collapse navbar-collapse">
+    <ul class="navbar-nav ml-auto mt-2 mt-md-0">
+    <span class="pipe-line"></span>
+    <li class="nav-item dropdown" ngbDropdown>
+      <a href="javascript:void(0)" class="nav-link" ngbDropdownToggle>
+        <i class="fa fa-user user-icon"></i> {{employeeName}} <b class="caret"></b>
+      </a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" [routerLink]="['/password']" ><i class="fa fa-fw fa-power-off"></i> Change Password </a>
+        <a class="dropdown-item" [routerLink]="['/login']" (click)="onLoggedout()"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+      </div>
+    </li>
+    </ul>
+</div>
+</nav>
+</div>

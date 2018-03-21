@@ -1,0 +1,96 @@
+$topnav-background-color: #FFF;
+:host {
+    display: block;
+}
+.login-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: auto;
+    background: $topnav-background-color;
+    text-align: center;
+    color: #222;
+    padding: 1em;
+    .col-lg-4{
+        padding :0;
+    }
+    .input-lg {
+        padding: 10px;
+        font-size: 14px;
+        border-radius: 0;
+		letter-spacing: 0.02em;
+    }
+
+    h1 {
+		font-weight: bold;
+		margin-top: 20px;
+		margin-bottom: 10px;
+		font-size: 14px;
+		color: #222;
+        small {
+            color: rgba(255,255,255,0.7);
+        }
+    }
+
+    .form-group {
+        padding: 4px 0;
+        input::-webkit-input-placeholder {
+        /*color: rgba(255,255,255,0.6) !important;*/
+			text-align: center;
+			font-size: 14px;
+        }
+
+        input:-moz-placeholder { /* Firefox 18- */
+        /*color: rgba(255,255,255,0.6) !important;*/
+			text-align: center;
+			font-size: 14px;
+        }
+
+        input::-moz-placeholder {  /* Firefox 19+ */
+        /*color: rgba(255,255,255,0.6) !important;*/
+			text-align: center;
+			font-size: 14px;
+        }
+
+        input:-ms-input-placeholder {
+        /*color: rgba(255,255,255,0.6) !important;*/
+			text-align: center;
+			font-size: 14px;
+        }
+		
+		a.forgot-password {
+			font-size: 14px;
+			text-decoration: underline;
+		}
+		
+    }
+    .form-content {
+        padding: 25px 0 5px;
+    }
+    .user-avatar {
+		width: 225px;
+		margin: 20px 0 40px;
+    }
+	
+	
+	.login-container {
+		border: 1px solid #ccc;
+		padding: 10px 30px 30px;
+		box-shadow: 0px 0px 4px #ccc;
+		background-color: #fbfbfb;
+	}
+	
+	.login-button {
+		width: 100%;
+		border-radius: 0;
+		font-weight: bold;
+		margin-bottom: 25px;
+	}
+	
+	.btn-primary:focus {
+		color: #fff;
+	}
+	
+}

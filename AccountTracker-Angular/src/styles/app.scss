@@ -1,0 +1,27 @@
+/* You can add global styles to this file, and also import other style files */
+@import "bootstrap/bootstrap";
+@import "spinner";
+@import "utils";
+@import "rtl";
+@import "responsive";
+
+html, body {
+	background-color: #e2e2e2;
+}
+
+.c-btn[_ngcontent-c5], .c-btn{
+    width: 100%;
+    box-shadow: 0px 1px 5px #959595;
+    padding: 4px !important;
+    cursor: pointer;
+    display: flex;
+    margin-top: 6px !important;
+}
+
+.radio-text {
+	font-weight: bold;
+    font-size: 16px;
+}
+.no-pad {
+	padding:0px
+}
