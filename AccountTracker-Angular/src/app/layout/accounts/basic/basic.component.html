@@ -19,29 +19,103 @@
                         <div class="tab-info tab-pane active">
                             <div class="row">
                               <div class="col-12">
-                                    <button class="btn btn-default pull-right affine-blue" (click)="addClaim()"> Add Account <i class="fa fa-plus"> </i></button>
+                                    <button class="btn btn-default pull-right affine-blue" (click)="addAccount()"> Add Account <i class="fa fa-plus"> </i></button>
                                 </div>
                             </div>
                             <hr class="cus-hr" />
-                            <div class="row form-row" [hidden]="addReimbursementForm">
+                            <div class="row form-row" [hidden]="!addAccountForm">
                                 <div class="col-12">
                                     <i class="fa fa-times pull-right" (click)="hideTab()"></i>
                                 </div>
-                                <div class="col-12" *ngIf="ReimbursementDetails">
+                                <div class="col-12" *ngIf="AccountDetails">
                                     <form novalidate #f="ngForm" (ngSubmit)="save(f.value)" class="tab-info tab-content">
                                         <h6 class="tab-h6"> Account Information </h6>
                                         <hr class="cus-hr"/>
                                     <div class="row cus-row" >
-                                        <div class="col-md-6">
-
+                                        <div class="col-md-6">  <!-- left half -->
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Account Name  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="Account_Name" [ngModel]="AccountDetails.Account_Name "  #AccountName="ngModel"  placeholder="Account Name" required />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Account Manager  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="Account_Manager" [ngModel]="AccountDetails.Account_Manager"  #AccountManager="ngModel"  placeholder="Account Manager" required />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Contact Person  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="Contact_Person" [ngModel]="AccountDetails.Contact_Person "  #ContactPerson="ngModel"  placeholder="Contact Person Name"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Address  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="Address" [ngModel]="AccountDetails.Address "  #Address="ngModel"  placeholder="Address"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Country  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <select class="form-control"  name="Country" [ngModel]="AccountDetails.Country "  #Country="ngModel"  >
+                                                        <option>India</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <!-- <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> State  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <select class="form-control"  name="State" [ngModel]="AccountDetails.State "  #State="ngModel"  >
+                                                        <option>Karnataka</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div> -->
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> City  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="City" [ngModel]="AccountDetails.City "  #City="ngModel"  placeholder="City"  />
+                                                  </div>
+                                              </div>
+                                          </div>
                                         </div>
-                                        <div class="col-6">
-
+                                        <div class="col-6"><!--Right half-->
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Email ID  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="email"  name="Email_Id" [ngModel]="AccountDetails.Email_Id "  #ContactEmail="ngModel"  placeholder="Email id"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Phone Number  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="Phone_Number" [ngModel]="AccountDetails.Phone_Number "  #ContactNumber="ngModel"  placeholder="Phone Number"  />
+                                                  </div>
+                                              </div>
+                                          </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <!-- <button type="submit" class="btn btn-default btn-cus-grey pull-right" [hidden]="submitButton" > SUBMIT </button> -->
+                                            <button type="submit" class="btn btn-primary btn-cus-grey pull-right" [hidden]="submitButton" > SUBMIT </button>
                                         </div>
                                     </div>
                                   </form>
@@ -51,7 +125,43 @@
                           <div class="row" style="background:#f7f7f7">
                               <div class="col-12">
 
-
+                                <table class="table table-bordered table-striped cus-table" [mfData]="accList" #mf="mfDataTable" [mfRowsOnPage]="5">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>Account Name</th>
+                                            <th>Account Manager</th>
+                                            <th> Contact Person </th>
+                                            <th> Address </th>
+                                            <th> Country </th>
+                                            <th> City </th>
+                                            <th> Contact Email</th>
+                                            <th> Contact Phone </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         <tr *ngFor="let account of mf.data;let i = index">
+                                             <td> {{i+1}} </td>
+                                             <td> {{ account.Account_Name }}</td>
+                                             <td> {{ account.Account_Manager }} </td>
+                                             <td> {{ account.Contact_Person }} </td>
+                                             <td> {{ account.Address }} </td>
+                                             <td> {{ account.Country }} </td>
+                                             <td> {{ account.City }} </td>
+                                             <td> {{ account.Email_Id }} </td>
+                                             <td> {{ account.Phone_Number }} </td>
+                                             <td><i class = "fa fa-edit" (click) = "editAccount(account)"></i></td>
+                                         </tr>
+                                    </tbody>
+                                    <tfoot>
+                                      <tr>
+                                          <td colspan="5">
+                                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                          </td>
+                                      </tr>
+                                      </tfoot>
+                                </table>
 
                               </div>
                           </div>

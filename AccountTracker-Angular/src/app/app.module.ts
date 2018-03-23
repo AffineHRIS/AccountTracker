@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {
-    AuthGuard, AuthenticateService, EmployeeIdNameService,PasswordService, Globals, reimbursementService
+    AuthGuard, AuthenticateService, EmployeeIdNameService,PasswordService, Globals, reimbursementService,AccountDetailService
 } from './shared';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
@@ -42,6 +42,7 @@ export function HttpLoaderFactory(http: Http) {
       AuthGuard,
       EmployeeIdNameService,
       reimbursementService,
+      AccountDetailService,
       AuthenticateService,
       PasswordService,
       Globals,

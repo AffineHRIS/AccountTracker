@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { BasicComponent } from './basic.component';
 import { BasicRoutingModule } from './basic-routing.module';
 
-import { DataTableModule } from 'angular-4-data-table/src/index';
+import { DataTableModule } from "angular2-datatable";
 import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown/angular2-multiselect-dropdown';
 
 @NgModule({
