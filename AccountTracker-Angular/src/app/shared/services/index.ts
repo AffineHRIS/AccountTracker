@@ -4,3 +4,5 @@ export * from './employeeidname/employeeidname';
 export * from './reimbursement/reimbursement.service';
 export * from './password/password.service';
 export * from './accounts/account.service';
+export * from './msa/msa.service';
+export * from './sow/sow.service';

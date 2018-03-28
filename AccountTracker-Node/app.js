@@ -148,6 +148,7 @@ app.get('/employeeIdName/:data', function (req, res) {
   });
 });
 
+/***************************************Accounts***************************************/
 //Get account details
 app.get('/accountDetails/', function (req, res) {
   var id = req.params.data;
@@ -224,6 +225,210 @@ app.put('/api/updateAccount', function (req, res) {
   });
 });
 
+
+
+/***************************************MSA***************************************/
+//Get msa details
+app.get('/MSADetails/', function (req, res) {
+  var id = req.query.accountId;
+  var sqlQuery = '';
+  if(id)
+  {
+    sqlQuery = "SELECT * FROM accountstracker.msa WHERE Account_Id ='"+id+"'";
+  }
+  else
+  {
+    sqlQuery = "SELECT * FROM accountstracker.msa";
+  }
+
+  con.query(sqlQuery, function(err, rows, fields) {
+    if (!err){
+      var response = [];
+      if (rows.length != 0) {
+        response.push({'result' : 'success', 'data' : rows});
+      } else {
+        response.push({'result' : 'error', 'msg' : 'No Results Found'});
+      }
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).send(JSON.stringify(response));
+    } else {
+      res.status(400).send(err);
+    }
+  });
+});
+
+
+//POST / save msa details
+app.post('/api/addMSA', function (req, res) {
+  var result = {};
+  return knex1("msa")
+  .insert({
+      MSA_Name: req.body.MSA_Name,
+      Account_Id: req.body.Account_Id,
+      MSA_Start_Date: req.body.MSA_Start_Date,
+      MSA_End_Date: req.body.MSA_End_Date,
+      MSA_Client_Signing_Authority: req.body.MSA_Client_Signing_Authority,
+      MSA_Client_Signing_Authority_Email:req.body.MSA_Client_Signing_Authority_Email,
+      MSA_Client_Signing_Authority_Number: req.body.MSA_Client_Signing_Authority_Number,
+      MSA_Payment_Terms: req.body.MSA_Payment_Terms,
+      MSA_Client_Finance_Person:req.body.MSA_Client_Finance_Person,
+      MSA_Client_Finance_Person_Email:req.body.MSA_Client_Finance_Person_Email,
+      MSA_Affine_Signing_Authority: req.body.MSA_Affine_Signing_Authority,
+      MSA_Affine_Signing_Authority_Email: req.body.MSA_Affine_Signing_Authority_Email,
+      MSA_Affine_Signing_Authority_Number: req.body.MSA_Affine_Signing_Authority_Number,
+      MSA_Legal_Person_Contact: req.body.MSA_Legal_Person_Contact,
+      MSA_Document :req.body.MSA_Document
+  })
+  .then(function(response) {
+    //result['data'] = req.body;
+    result['result'] = 'success';
+    result['message'] = 'MSA details saved successfully!';
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send( result );
+  })
+  .catch(function (err) {
+      console.log('Error while saving msa details: %s', err.toString());
+      res.status(400).send(err.toString());
+  });
+});
+
+//PUT / update msa details
+app.put('/api/updateMSA', function (req, res) {
+  var result = {};
+  return knex1("msa")
+  .update({
+    MSA_Name: req.body.MSA_Name,
+    Account_Id: req.body.Account_Id,
+    MSA_Start_Date: req.body.MSA_Start_Date,
+    MSA_End_Date: req.body.MSA_End_Date,
+    MSA_Client_Signing_Authority: req.body.MSA_Client_Signing_Authority,
+    MSA_Client_Signing_Authority_Email:req.body.MSA_Client_Signing_Authority_Email,
+    MSA_Client_Signing_Authority_Number: req.body.MSA_Client_Signing_Authority_Number,
+    MSA_Payment_Terms: req.body.MSA_Payment_Terms,
+    MSA_Client_Finance_Person:req.body.MSA_Client_Finance_Person,
+    MSA_Client_Finance_Person_Email:req.body.MSA_Client_Finance_Person_Email,
+    MSA_Affine_Signing_Authority: req.body.MSA_Affine_Signing_Authority,
+    MSA_Affine_Signing_Authority_Email: req.body.MSA_Affine_Signing_Authority_Email,
+    MSA_Affine_Signing_Authority_Number: req.body.MSA_Affine_Signing_Authority_Number,
+    MSA_Legal_Person_Contact: req.body.MSA_Legal_Person_Contact,
+    MSA_Document :req.body.MSA_Document
+  })
+  .where('MSA_Id', req.body.MSA_Id)
+  .then(function(response) {
+    //result['data'] = req.body;
+    result['result'] = 'success';
+    result['message'] = 'MSA details updated successfully!';
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send( result );
+  })
+  .catch(function (err) {
+      console.log('Error while updating MSA details: %s', err.toString());
+      res.status(400).send(err.toString());
+  });
+});
+
+
+
+/***************************************SOW***************************************/
+//Get sow details
+app.get('/SOWDetails/', function (req, res) {
+  var id = req.query.MSAId;
+  var sqlQuery = '';
+  if(id)
+  {
+    sqlQuery = "SELECT * FROM accountstracker.sow WHERE MSA_Id ='"+id+"'";
+  }
+  else
+  {
+    sqlQuery = "SELECT * FROM accountstracker.sow";
+  }
+
+  con.query(sqlQuery, function(err, rows, fields) {
+    if (!err){
+      var response = [];
+      if (rows.length != 0) {
+        response.push({'result' : 'success', 'data' : rows});
+      } else {
+        response.push({'result' : 'error', 'msg' : 'No Results Found'});
+      }
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).send(JSON.stringify(response));
+    } else {
+      res.status(400).send(err);
+    }
+  });
+});
+
+
+//POST / save sow details
+app.post('/api/addSOW', function (req, res) {
+  var result = {};
+  return knex1("sow")
+  .insert({
+    SOW_Name: req.body.SOW_Name,
+    MSA_Id: req.body.MSA_Id,
+    SOW_Description: req.body.SOW_Description,
+    SOW_Start_Date: req.body.SOW_Start_Date,
+    SOW_End_Date: req.body.SOW_End_Date,
+    SOW_Value: req.body.SOW_Value,
+    SOW_Monthly_Value: req.body.SOW_Monthly_Value,
+    SOW_Onsite_Count: req.body.SOW_Onsite_Count,
+    SOW_Offshore_Count: req.body.SOW_Offshore_Count,
+    SOW_Onsite_Rate: req.body.SOW_Onsite_Rate,
+    SOW_Max_Onsite_Hours_Per_Day: req.body.SOW_Max_Onsite_Hours_Per_Day,
+    SOW_Offshore_Rate: req.body.SOW_Offshore_Rate,
+    SOW_Invoice_Term: req.body.SOW_Invoice_Term,
+    SOW_No_Of_Persons: req.body.SOW_No_Of_Persons,
+    SOW_Document: req.body.SOW_Document
+  })
+  .then(function(response) {
+    //result['data'] = req.body;
+    result['result'] = 'success';
+    result['message'] = 'SOW details saved successfully!';
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send( result );
+  })
+  .catch(function (err) {
+      console.log('Error while saving SOW details: %s', err.toString());
+      res.status(400).send(err.toString());
+  });
+});
+
+//PUT / update sow details
+app.put('/api/updateSOW', function (req, res) {
+  var result = {};
+  return knex1("sow")
+  .update({
+    SOW_Name: req.body.SOW_Name,
+    MSA_Id: req.body.MSA_Id,
+    SOW_Description: req.body.SOW_Description,
+    SOW_Start_Date: req.body.SOW_Start_Date,
+    SOW_End_Date: req.body.SOW_End_Date,
+    SOW_Value: req.body.SOW_Value,
+    SOW_Monthly_Value: req.body.SOW_Monthly_Value,
+    SOW_Onsite_Count: req.body.SOW_Onsite_Count,
+    SOW_Offshore_Count: req.body.SOW_Offshore_Count,
+    SOW_Onsite_Rate: req.body.SOW_Onsite_Rate,
+    SOW_Max_Onsite_Hours_Per_Day: req.body.SOW_Max_Onsite_Hours_Per_Day,
+    SOW_Offshore_Rate: req.body.SOW_Offshore_Rate,
+    SOW_Invoice_Term: req.body.SOW_Invoice_Term,
+    SOW_No_Of_Persons: req.body.SOW_No_Of_Persons,
+    SOW_Travel: req.body.SOW_Travel,
+    SOW_Document: req.body.SOW_Document
+  })
+  .where('SOW_Id', req.body.SOW_Id)
+  .then(function(response) {
+    //result['data'] = req.body;
+    result['result'] = 'success';
+    result['message'] = 'SOW details updated successfully!';
+    res.setHeader('Content-Type', 'application/json');
+    res.status(200).send( result );
+  })
+  .catch(function (err) {
+      console.log('Error while updating SOW details: %s', err.toString());
+      res.status(400).send(err.toString());
+  });
+});
 // Change user password.
 app.post('/api/changePassword', function (req, res) {
     var un = req.body.username,

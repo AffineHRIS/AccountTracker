@@ -19,6 +19,14 @@ const routes: Routes = [
             {
                 path: 'password',
                 loadChildren: './password/password.module#PasswordModule'
+            },
+            {
+                path: 'msa',
+                loadChildren: './accounts/msa/msa.module#MsaModule'
+            },
+            {
+                path: 'sow',
+                loadChildren: './accounts/sow/sow.module#SowModule'
             }
         ]
     }

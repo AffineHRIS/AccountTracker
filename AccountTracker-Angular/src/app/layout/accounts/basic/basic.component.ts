@@ -26,7 +26,7 @@ export class BasicComponent implements OnInit {
     SuccessMail : string = '';
 
 
-    @ViewChild(DataTable) claimsTable: DataTable;
+    @ViewChild(DataTable) accountsTable: DataTable;
 
     constructor(
         private router: Router,
@@ -67,6 +67,12 @@ export class BasicComponent implements OnInit {
       this.AccountDetails = account;
       this.addAccountForm = true;
 
+    }
+    getAccountId(account) {
+      return account.Account_Id;
+    }
+    getAccountName(account) {
+      return account.Account_Name;
     }
 
     save(model : any) {

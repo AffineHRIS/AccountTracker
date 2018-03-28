@@ -1,0 +1,199 @@
+
+<div class="accounts-section">
+    <div class="row">
+        <div class="col-6">
+            <h6 class="text-muted-header"> MSA Tracker </h6>
+        </div>
+        <div class="col-6">
+            <i class="fa fa-refresh fa-1x affine-blue-text-noline pull-right" (click)="refresh(selectedItems)"></i>
+        </div>
+    </div>
+
+    <div class="horizontal-pipe-line"></div>
+
+	<div class="tabs-details-container">
+		<div class="tabs-list">
+            <div class="row mt-3" style="margin-top:0px !important">
+                <div class="col-sm-6 col-md-12">
+                    <div class="basic-details tab-content">
+                        <div class="tab-info tab-pane active">
+                            <div class="row">
+                              <div class="col-12">
+                                    <button class="btn btn-default pull-right affine-blue" (click)="addMSA()"> Add MSA <i class="fa fa-plus"> </i></button>
+                                </div>
+                            </div>
+                            <hr class="cus-hr" />
+                            <div class="row form-row" [hidden]="!addMSAForm">
+                                <div class="col-12">
+                                    <i class="fa fa-times pull-right" (click)="hideTab()"></i>
+                                </div>
+                                <div class="col-12" *ngIf="MSADetails">
+                                    <form novalidate #f="ngForm" (ngSubmit)="save(f.value)" class="tab-info tab-content">
+                                        <h6 class="tab-h6"> MSA Information </h6>
+                                        <hr class="cus-hr"/>
+                                    <div class="row cus-row" >
+                                        <div class="col-md-6">  <!-- left half -->
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> MSA Name  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="MSA_Name" [ngModel]="MSADetails.MSA_Name "  #MSAName="ngModel"  placeholder="MSA Name" required />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Account Name  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <!-- <select class="form-control"  name="Account_Id" [ngModel]="MSADetails.Account_Id "  #AccountId="ngModel"  required ></select> -->
+                                                      <label>{{accountName}}</label>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Start Date <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="date"  name="MSA_Start_Date" [ngModel]="MSADetails.MSA_Start_Date | date:'yyyy-MM-dd'"  #MSAStartDate="ngModel"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> End Date  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <!-- <input class="form-control" type="date"  name="MSA_End_Date" [ngModel]="MSADetails.MSA_End_Date" (ngModelChange)="MSADetails.MSA_End_Date=$event" #MSAEndDate="ngModel"    /> -->
+                                                      <input type="date" class="form-control"  name="MSA_End_Date"  [ngModel] ="MSADetails.MSA_End_Date | date:'yyyy-MM-dd'"  #MSAEndDate="ngModel"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Client Signing Authority  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="MSA_Client_Signing_Authority" [ngModel]="MSADetails.MSA_Client_Signing_Authority "  #ClientSigningAuthority="ngModel"  placeholder="Client Signing Authority"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5"> Affine Signing Authority  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="MSA_Affine_Signing_Authority" [ngModel]="MSADetails.MSA_Affine_Signing_Authority "  #AffineSigningAuthority="ngModel"  placeholder="Affine Signing Authority"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+
+                                        </div>
+                                        <div class="col-6"><!--Right half-->
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Client Email ID  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="email"  name="MSA_Client_Signing_Authority_Email" [ngModel]="MSADetails.MSA_Client_Signing_Authority_Email "  #MSASigningPersonEmail="ngModel"  placeholder="Email id"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Client Phone Number<span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="MSA_Client_Signing_Authority_Number" [ngModel]="MSADetails.MSA_Client_Signing_Authority_Number "  #MSASigningPersonNumber="ngModel"  placeholder="Phone Number"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Payment Terms<span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="MSA_Payment_Terms" [ngModel]="MSADetails.MSA_Payment_Terms "  #PaymentTerms="ngModel"  placeholder="Payment Terms"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Client Finance Contact Name<span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="MSA_Client_Finance_Person" [ngModel]="MSADetails.MSA_Client_Finance_Person "  #ClientFinanceContact="ngModel"  placeholder="Name"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Client Finance Email ID  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="email"  name="MSA_Client_Finance_Person_Email" [ngModel]="MSADetails.MSA_Client_Finance_Person_Email "  #ClientFinanceContactEmail="ngModel"  placeholder="Email id"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-primary btn-cus-grey pull-right" [hidden]="submitButton" > SUBMIT </button>
+                                        </div>
+                                    </div>
+                                  </form>
+                              </div>
+                          </div>
+
+                          <div class="row" style="background:#f7f7f7">
+                              <div class="col-12">
+
+                                <table class="table table-bordered table-striped cus-table" [mfData]="MSAList" #mf="mfDataTable" [mfRowsOnPage]="5">
+                                    <thead class="thead-inverse">
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>MSA Name</th>
+                                            <th>Account Name</th>
+                                            <th> Documents </th>
+                                            <th> Start Date </th>
+                                            <th> End Date </th>
+                                            <th> Client Sigining Authority </th>
+                                            <th> Contact Email</th>
+                                            <th> Payment Terms </th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+                                         <tr *ngFor="let msa of mf.data;let i = index">
+                                             <td> {{i+1}} </td>
+                                             <td>
+                                               <a  [routerLink]="['/sow']" [queryParams]="{id:getMSAId(msa), name: getMSAName(msa) }" href="javascript:void(0)" >
+                                                 {{ msa.MSA_Name }}
+                                               </a>
+                                             </td>
+                                             <td> {{ accountName }} </td>
+                                             <td> {{ msa.Contact_Person }} </td>
+                                             <td> {{ msa.MSA_Start_Date | date: 'mediumDate'}}  </td>
+                                             <td> {{ msa.MSA_End_Date | date: 'mediumDate'}} </td>
+                                             <td> {{ msa.MSA_Client_Signing_Authority }} </td>
+                                             <td> {{ msa.MSA_Client_Signing_Authority_Email }} </td>
+                                             <td> {{ msa.MSA_Payment_Terms }} </td>
+                                             <td><i class = "fa fa-edit" (click) = "editMSA(msa)"></i></td>
+                                         </tr>
+                                    </tbody>
+                                    <tbody *ngIf = "!MSAList">
+                                      <tr>
+                                        <td colspan = "10" style="text-align:center;">No Data</td>
+                                      </tr>
+                                    </tbody>
+                                    <tfoot>
+                                      <tr>
+                                          <td colspan="5">
+                                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                          </td>
+                                      </tr>
+                                      </tfoot>
+                                </table>
+
+                              </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+		</div>
+	</div>
+</div>

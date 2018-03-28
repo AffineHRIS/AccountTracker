@@ -8,6 +8,7 @@ import { FileSelectDirective } from 'ng2-file-upload';
 import { LayoutRoutingModule } from './layout-routing.module';
 import { LayoutComponent } from './layout.component';
 import { HeaderComponent, SidebarComponent } from '../shared';
+//import { MsaComponent } from './accounts/src/app/layout/accounts/msa/msa.component';
 
 @NgModule({
     imports: [
@@ -22,7 +23,8 @@ import { HeaderComponent, SidebarComponent } from '../shared';
     declarations: [
         LayoutComponent,
         HeaderComponent,
-        SidebarComponent
+        SidebarComponent,
+        //MsaComponent
     ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
