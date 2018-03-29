@@ -51,7 +51,7 @@
                                           </div>
                                           <div class="form-group" >
                                               <div class="row">
-                                                  <label class="col-md-5"> Contact Person  <span class="pull-right"> : </span> </label>
+                                                  <label class="col-md-5">Client Contact Person  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <input class="form-control" type="text"  name="Contact_Person" [ngModel]="AccountDetails.Contact_Person "  #ContactPerson="ngModel"  placeholder="Contact Person Name"  />
                                                   </div>
@@ -59,7 +59,7 @@
                                           </div>
                                           <div class="form-group" >
                                               <div class="row">
-                                                  <label class="col-md-5"> Address  <span class="pull-right"> : </span> </label>
+                                                  <label class="col-md-5">Client Address  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <input class="form-control" type="text"  name="Address" [ngModel]="AccountDetails.Address "  #Address="ngModel"  placeholder="Address"  />
                                                   </div>
@@ -70,7 +70,8 @@
                                                   <label class="col-md-5"> Country  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <select class="form-control"  name="Country" [ngModel]="AccountDetails.Country "  #Country="ngModel"  >
-                                                        <option>India</option>
+                                                        <option value="India">India</option>
+                                                        <option vlaue="USA">USA</option>
                                                       </select>
                                                   </div>
                                               </div>
@@ -97,7 +98,7 @@
                                         <div class="col-6"><!--Right half-->
                                           <div class="form-group" >
                                               <div class="row">
-                                                  <label class="col-md-5"> Email ID  <span class="pull-right"> : </span> </label>
+                                                  <label class="col-md-5">Client Email ID  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <input class="form-control" type="email"  name="Email_Id" [ngModel]="AccountDetails.Email_Id "  #ContactEmail="ngModel"  placeholder="Email id"  />
                                                   </div>
@@ -105,7 +106,7 @@
                                           </div>
                                           <div class="form-group" >
                                               <div class="row">
-                                                  <label class="col-md-5"> Phone Number  <span class="pull-right"> : </span> </label>
+                                                  <label class="col-md-5">Client Phone Number  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <input class="form-control" type="text"  name="Phone_Number" [ngModel]="AccountDetails.Phone_Number "  #ContactNumber="ngModel"  placeholder="Phone Number"  />
                                                   </div>

@@ -2,7 +2,7 @@ import { Component, Input, OnInit,OnChanges, NgModule, CUSTOM_ELEMENTS_SCHEMA, V
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import {  MsaService } from '../../../shared';
+import {  MsaService, FileUploadService } from '../../../shared';
 import { Globals } from '../../../shared';
 import { CurrencyPipe } from '@angular/common';
 
@@ -25,6 +25,8 @@ export class MsaComponent implements OnInit {
   SuccessMail : string = '';
   accountId : string;
   accountName : string;
+  MSA_thumbHidden:boolean = true;
+  MSAFilePath = 'http://'+ this.globals.apiServerIP +':3100/uploads/msa/';
 
 
   @ViewChild(DataTable) MSATable: DataTable;
@@ -32,11 +34,14 @@ export class MsaComponent implements OnInit {
   constructor(
       private router: Router,
       private route: ActivatedRoute,
-      private msaService : MsaService
+      private msaService : MsaService,
+      private globals : Globals,
+      private fileUploadService : FileUploadService
   ) {
-
+    this.filesToUpload = [];
   }
   @ViewChild('f') form: any;
+  filesToUpload: Array<File>;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
        this.accountId = params['id'];
@@ -47,7 +52,23 @@ export class MsaComponent implements OnInit {
        // }
        this.getMSA();
     });
-      //this.getMSA();
+  }
+
+  upload(file) {
+      this.fileUploadService.makeFileRequest('http://'+ this.globals.apiServerIP +':3100/uploadMSA', [], this.filesToUpload).then((result) => {
+          console.log(file);
+          this.MSADetails.MSA_Document =result[0].filename;
+          this.MSA_thumbHidden =false;
+
+          console.log(result[0].filename);
+          // console.log(result);
+      }, (error) => {
+          console.error(error);
+      });
+  }
+
+  fileChangeEvent(fileInput: any){
+      this.filesToUpload = <Array<File>> fileInput.target.files;
   }
 
   hideTab() : void {

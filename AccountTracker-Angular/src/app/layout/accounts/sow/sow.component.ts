@@ -2,9 +2,10 @@ import { Component, Input, OnInit,OnChanges, NgModule, CUSTOM_ELEMENTS_SCHEMA, V
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { SowService } from '../../../shared';
+import { SowService, FileUploadService } from '../../../shared';
 import { Globals } from '../../../shared';
 import { CurrencyPipe } from '@angular/common';
+//import { Globals } from '../../global';
 
 import { DataTable, DataTableResource } from 'angular-4-data-table';
 
@@ -24,6 +25,8 @@ export class SowComponent implements OnInit {
   SuccessMail : string = '';
   MSAId : string;
   MSAName : string;
+  SOW_thumbHidden:boolean = true;
+  SOWFilePath = 'http://'+ this.globals.apiServerIP +':3100/uploads/sow/';
 
 
   @ViewChild(DataTable) SOWTable: DataTable;
@@ -31,24 +34,41 @@ export class SowComponent implements OnInit {
   constructor(
       private router: Router,
       private route: ActivatedRoute,
-      private sowService : SowService
+      private sowService : SowService,
+      private globals : Globals,
+      private fileUploadService : FileUploadService
   ) {
-
+      this.filesToUpload = [];
   }
   @ViewChild('f') form: any;
+  filesToUpload: Array<File>;
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
        this.MSAId = params['id'];
        this.MSAName  = params['name'];
-       console.log(this.MSAName);
-       // this.loginid = sessionStorage.getItem('username');
-       // if ( this.employeeid === undefined ) {
-       //     this.employeeid = this.loginid;
-       // }
+
        this.getSOW();
     });
       //this.getSOW();
   }
+  upload(file) {
+      this.fileUploadService.makeFileRequest('http://'+ this.globals.apiServerIP +':3100/uploadSOW', [], this.filesToUpload).then((result) => {
+          console.log(file);
+          this.SOWDetails.SOW_Document =result[0].filename;
+          this.SOW_thumbHidden =false;
+
+          console.log(result[0].filename);
+          // console.log(result);
+      }, (error) => {
+          console.error(error);
+      });
+  }
+
+  fileChangeEvent(fileInput: any){
+      this.filesToUpload = <Array<File>> fileInput.target.files;
+  }
+
+
 
   hideTab() : void {
       this.addSOWForm = false;
@@ -58,7 +78,6 @@ export class SowComponent implements OnInit {
 
     this.sowService.getSOWList(this.MSAId).subscribe(
         (response) =>{
-          console.log(response);
             this.SOWList = response[0].data;
         },
         (error) => {

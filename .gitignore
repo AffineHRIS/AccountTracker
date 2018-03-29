@@ -36,3 +36,6 @@ Thumbs.db
 # node_modules ignore
 /AccountTracker-Angular/node_modules/*
 /AccountTracker-Node/node_modules/*
+
+# upload files
+/AccountTracker-Node/uploads/*

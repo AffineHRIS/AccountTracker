@@ -43,6 +43,14 @@
                                           </div>
                                           <div class="form-group" >
                                               <div class="row">
+                                                  <label class="col-md-5"> SOW Number  <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="SOW_Number" [ngModel]="SOWDetails.SOW_Number "  #SOWNumber="ngModel"  placeholder="SOW Number" required />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
                                                   <label class="col-md-5"> MSA Name  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <!-- <select class="form-control"  name="Account_Id" [ngModel]="SOWDetails.Account_Id "  #AccountId="ngModel"  required ></select> -->
@@ -152,9 +160,33 @@
                                           </div>
                                           <div class="form-group" >
                                               <div class="row">
-                                                  <label class="col-md-5">Invoice Term<span class="pull-right"> : </span> </label>
+                                                  <label class="col-md-5">Invoice Frequency<span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
-                                                      <input class="form-control" type="text"  name="SOW_Invoice_Term" [ngModel]="SOWDetails.SOW_Invoice_Term "  #InvoiceTerm="ngModel"  placeholder="Invoice Term"  />
+                                                      <select class="form-control" type="text"  name="SOW_Invoice_Frequency" [ngModel]="SOWDetails.SOW_Invoice_Frequency "  #SOWInvoiceFrequency="ngModel"  required>
+                                                        <option value="monthly">Monthly</option>
+                                                        <option value="milestone">Milestone</option>
+                                                        <option value="others">Others</option>
+                                                      </select>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Invoice Credit Period<span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="SOW_Invoice_Credit_Period" [ngModel]="SOWDetails.SOW_Invoice_Credit_Period "  #SOWInvoiceCreditPeriod="ngModel"  placeholder="Credit Period" required />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <div class="row">
+                                                  <label class="col-md-5"> SOW <span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-3">
+                                                    <input type="hidden" class="form-control" name="SOW_Document" [(ngModel)]="SOWDetails.SOW_Document" #SOWFile="ngModel" />
+                                                    <input type="file" (change)="fileChangeEvent($event)" />
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                    <button type="button" (click)="upload('SOW_Document')">Attach</button> <i class="fa-thumbs-up fa green" [hidden]="SOW_thumbHidden"> </i>
                                                   </div>
                                               </div>
                                           </div>
@@ -177,14 +209,15 @@
                                         <tr>
                                             <th>S.No</th>
                                             <th>SOW Name</th>
+                                            <th>SOW No</th>
                                             <th>MSA Name</th>
-                                            <th> Documents </th>
+                                            <th> Document </th>
                                             <th> Start Date </th>
                                             <th> End Date </th>
                                             <th> SOW Value </th>
                                             <th> # Persons</th>
                                             <th> Onsite Rate </th>
-                                            <th> Invoice Term </th>
+                                            <th> Invoice Frequency </th>
                                             <th></th>
                                         </tr>
                                     </thead>
@@ -192,14 +225,17 @@
                                          <tr *ngFor="let sow of mf.data;let i = index">
                                              <td> {{i+1}} </td>
                                              <td> {{ sow.SOW_Name }} </td>
+                                             <td> {{ sow.SOW_Number }} </td>
                                              <td> {{ MSAName }} </td>
-                                             <td> {{ sow.SOW_Document }} </td>
+                                             <td>
+                                               <a href="{{SOWFilePath+sow.SOW_Document}}" target="_blank"><i class="fa fa-download" *ngIf = "sow.SOW_Document === null ? false:true;"></i> {{ sow.SOW_Document }} </a>
+                                             </td>
                                              <td> {{ sow.SOW_Start_Date | date: 'mediumDate'}}  </td>
                                              <td> {{ sow.SOW_End_Date | date: 'mediumDate'}} </td>
                                              <td> {{ sow.SOW_Value }} </td>
                                              <td> {{ sow.SOW_No_Of_Persons }} </td>
                                              <td> {{ sow.SOW_Onsite_Rate }} </td>
-                                             <td> {{ sow.SOW_Invoice_Term }} </td>
+                                             <td> {{ sow.SOW_Invoice_Frequency }} </td>
                                              <td><i class = "fa fa-edit" (click) = "editSOW(sow)"></i></td>
                                          </tr>
                                     </tbody>
