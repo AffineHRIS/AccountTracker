@@ -5,7 +5,7 @@ import { Globals } from '../../global';
 @Injectable()
 export class AuthenticateService {
 
-    private url = 'http://'+ this.globals.apiServerIP +':3100/authenticate';
+    private url = 'http://'+ this.globals.apiServerIP +':3200/authenticate';
 
     constructor(
         private http:Http,

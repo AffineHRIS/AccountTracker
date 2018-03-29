@@ -8,7 +8,7 @@ import { Globals } from '../../global';
 @Injectable()
 export class MsaService {
 
-    private accURL= 'http://'+ this.globals.apiServerIP +':3100/MSADetails';
+    private accURL= 'http://'+ this.globals.apiServerIP +':3200/MSADetails';
     constructor(
       private http:Http,
       private httpClient: HttpClient,
@@ -39,7 +39,7 @@ export class MsaService {
     addMSADetails(model: {}) {
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post(
-            'http://'+ this.globals.apiServerIP +':3100/api/addMSA',
+            'http://'+ this.globals.apiServerIP +':3200/api/addMSA',
             model,
             { headers: headers }
         );
@@ -48,7 +48,7 @@ export class MsaService {
     updateMSADetails(model: {}) {
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.put(
-            'http://'+ this.globals.apiServerIP +':3100/api/updateMSA',
+            'http://'+ this.globals.apiServerIP +':3200/api/updateMSA',
             model,
             { headers: headers }
         );

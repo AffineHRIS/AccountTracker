@@ -13,7 +13,7 @@ export class PasswordService {
     changePassword(modelData: {}) {
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post(
-            'http://'+ this.globals.apiServerIP +':3100/api/changePassword',
+            'http://'+ this.globals.apiServerIP +':3200/api/changePassword',
             modelData,
             { headers: headers }
         );

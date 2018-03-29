@@ -26,7 +26,7 @@ export class SowComponent implements OnInit {
   MSAId : string;
   MSAName : string;
   SOW_thumbHidden:boolean = true;
-  SOWFilePath = 'http://'+ this.globals.apiServerIP +':3100/uploads/sow/';
+  SOWFilePath = 'http://'+ this.globals.apiServerIP +':3200/uploads/sow/';
 
 
   @ViewChild(DataTable) SOWTable: DataTable;
@@ -52,7 +52,7 @@ export class SowComponent implements OnInit {
       //this.getSOW();
   }
   upload(file) {
-      this.fileUploadService.makeFileRequest('http://'+ this.globals.apiServerIP +':3100/uploadSOW', [], this.filesToUpload).then((result) => {
+      this.fileUploadService.makeFileRequest('http://'+ this.globals.apiServerIP +':3200/uploadSOW', [], this.filesToUpload).then((result) => {
           console.log(file);
           this.SOWDetails.SOW_Document =result[0].filename;
           this.SOW_thumbHidden =false;

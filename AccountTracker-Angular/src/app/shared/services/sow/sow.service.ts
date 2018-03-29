@@ -8,7 +8,7 @@ import { Globals } from '../../global';
 @Injectable()
 export class SowService {
 
-    private accURL= 'http://'+ this.globals.apiServerIP +':3100/SOWDetails';
+    private accURL= 'http://'+ this.globals.apiServerIP +':3200/SOWDetails';
     constructor(
       private http:Http,
       private httpClient: HttpClient,
@@ -39,7 +39,7 @@ export class SowService {
     addSOWDetails(model: {}) {
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post(
-            'http://'+ this.globals.apiServerIP +':3100/api/addSOW',
+            'http://'+ this.globals.apiServerIP +':3200/api/addSOW',
             model,
             { headers: headers }
         );
@@ -48,7 +48,7 @@ export class SowService {
     updateSOWDetails(model: {}) {
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.put(
-            'http://'+ this.globals.apiServerIP +':3100/api/updateSOW',
+            'http://'+ this.globals.apiServerIP +':3200/api/updateSOW',
             model,
             { headers: headers }
         );

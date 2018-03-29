@@ -8,7 +8,7 @@ import { Globals } from '../../global';
 @Injectable()
 export class FileUploadService {
 
-    //private accURL= 'http://'+ this.globals.apiServerIP +':3100/SOWDetails';
+    //private accURL= 'http://'+ this.globals.apiServerIP +':3200/SOWDetails';
     constructor(
       private http:Http,
       private httpClient: HttpClient,

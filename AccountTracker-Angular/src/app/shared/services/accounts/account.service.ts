@@ -8,7 +8,7 @@ import { Globals } from '../../global';
 @Injectable()
 export class AccountDetailService {
 
-    private accURL= 'http://'+ this.globals.apiServerIP +':3100/accountDetails';
+    private accURL= 'http://'+ this.globals.apiServerIP +':3200/accountDetails';
     constructor(
       private http:Http,
       private httpClient: HttpClient,
@@ -21,14 +21,14 @@ export class AccountDetailService {
     };
 
     // getClaim(data:any): Promise<any> {
-    //     return this.httpClient.get('http://'+ this.globals.apiServerIP +':3100/claimDetails/'+data)
+    //     return this.httpClient.get('http://'+ this.globals.apiServerIP +':3200/claimDetails/'+data)
     //         .toPromise()
     //         .then(response => response)
     //         .catch(this.handleError);
     // };
     //
     // getFileDownload(data:any): Promise<any> {
-    //     return this.httpClient.get('http://'+ this.globals.apiServerIP +':3100/file')
+    //     return this.httpClient.get('http://'+ this.globals.apiServerIP +':3200/file')
     //         .toPromise()
     //         .then(response => response)
     //         .catch(this.handleError);
@@ -38,7 +38,7 @@ export class AccountDetailService {
     addAccountDetails(model: {}) {
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post(
-            'http://'+ this.globals.apiServerIP +':3100/api/addAccount',
+            'http://'+ this.globals.apiServerIP +':3200/api/addAccount',
             model,
             { headers: headers }
         );
@@ -47,7 +47,7 @@ export class AccountDetailService {
     updateAccountDetails(model: {}) {
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.put(
-            'http://'+ this.globals.apiServerIP +':3100/api/updateAccount',
+            'http://'+ this.globals.apiServerIP +':3200/api/updateAccount',
             model,
             { headers: headers }
         );

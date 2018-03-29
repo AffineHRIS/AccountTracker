@@ -36,6 +36,6 @@ app.get('/', function(req, res) {
 
 
 // Turn on that server!
-app.listen(3100, function() {
-  console.log('App listening on port 3100');
+app.listen(3200, function() {
+  console.log('App listening on port 3200');
 });

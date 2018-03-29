@@ -17,7 +17,7 @@ export class EmployeeIdNameService {
 
     getEmployeeIdName(employeeData: any): Promise<EmployeeIdName> {
 
-        return this.httpClient.get('http://'+ this.globals.apiServerIP +':3100/employeeIdName/'+employeeData)
+        return this.httpClient.get('http://'+ this.globals.apiServerIP +':3200/employeeIdName/'+employeeData)
         .toPromise()
         .then(response => response)
         .catch(this.handleError);
@@ -26,7 +26,7 @@ export class EmployeeIdNameService {
 
     getEmployeeList(): Promise<any> {
 
-        return this.httpClient.get('http://'+ this.globals.apiServerIP +':3100/employeeIdList/')
+        return this.httpClient.get('http://'+ this.globals.apiServerIP +':3200/employeeIdList/')
         .toPromise()
         .then(response => response)
         .catch(this.handleError);
@@ -36,7 +36,7 @@ export class EmployeeIdNameService {
     sendEmail(model: {}) {
         const headers = new Headers({'Content-Type': 'application/json'});
         return this.http.post(
-            'http://'+ this.globals.apiServerIP +':3100/sendMail',
+            'http://'+ this.globals.apiServerIP +':3200/sendMail',
             model, { headers: headers }
         );
     }

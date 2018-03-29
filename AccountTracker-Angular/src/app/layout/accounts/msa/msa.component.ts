@@ -26,7 +26,7 @@ export class MsaComponent implements OnInit {
   accountId : string;
   accountName : string;
   MSA_thumbHidden:boolean = true;
-  MSAFilePath = 'http://'+ this.globals.apiServerIP +':3100/uploads/msa/';
+  MSAFilePath = 'http://'+ this.globals.apiServerIP +':3200/uploads/msa/';
 
 
   @ViewChild(DataTable) MSATable: DataTable;
@@ -55,7 +55,7 @@ export class MsaComponent implements OnInit {
   }
 
   upload(file) {
-      this.fileUploadService.makeFileRequest('http://'+ this.globals.apiServerIP +':3100/uploadMSA', [], this.filesToUpload).then((result) => {
+      this.fileUploadService.makeFileRequest('http://'+ this.globals.apiServerIP +':3200/uploadMSA', [], this.filesToUpload).then((result) => {
           console.log(file);
           this.MSADetails.MSA_Document =result[0].filename;
           this.MSA_thumbHidden =false;

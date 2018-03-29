@@ -30,6 +30,7 @@ CREATE TABLE `aa_user` (
   `status` int(11) DEFAULT NULL,
   `created_at` text,
   `updated_at` text,
+  `last_password_changed_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -40,7 +41,7 @@ CREATE TABLE `aa_user` (
 
 LOCK TABLES `aa_user` WRITE;
 /*!40000 ALTER TABLE `aa_user` DISABLE KEYS */;
-INSERT INTO `aa_user` VALUES (1,'developer','$2a$10$B9YYyILFP/qlxflxqicUJ.P.Kx2tEd8q8KtMjE3vTkNTKqP82NuAS',NULL,NULL,NULL,NULL);
+INSERT INTO `aa_user` VALUES (1,'developer','$2a$10$OkIPftYYfULDLrZZDv4T0OznP2e75mwTiksOWx7vlHCjHCb3.8996',NULL,NULL,NULL,NULL,'2018-03-29 16:08:39');
 /*!40000 ALTER TABLE `aa_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,14 +117,15 @@ CREATE TABLE `msa` (
   `MSA_Client_Signing_Authority` varchar(50) DEFAULT NULL,
   `MSA_Client_Signing_Authority_Email` varchar(50) DEFAULT NULL,
   `MSA_Client_Signing_Authority_Number` varchar(15) DEFAULT NULL,
-  `MSA_Payment_Terms` varchar(50) DEFAULT NULL,
+  `MSA_Payment_Frequency` varchar(50) DEFAULT NULL,
+  `MSA_Payment_Credit_Period` varchar(50) DEFAULT NULL,
   `MSA_Client_Finance_Person` varchar(50) DEFAULT NULL,
   `MSA_Client_Finance_Person_Email` varchar(50) DEFAULT NULL,
   `MSA_Affine_Signing_Authority` varchar(50) DEFAULT NULL,
   `MSA_Affine_Signing_Authority_Email` varchar(50) DEFAULT NULL,
   `MSA_Affine_Signing_Authority_Number` varchar(50) DEFAULT NULL,
   `MSA_Legal_Person_Contact` varchar(50) DEFAULT NULL,
-  `MSA_Document` longblob,
+  `MSA_Document` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`MSA_Id`),
   UNIQUE KEY `MSA_Id_UNIQUE` (`MSA_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -135,7 +137,7 @@ CREATE TABLE `msa` (
 
 LOCK TABLES `msa` WRITE;
 /*!40000 ALTER TABLE `msa` DISABLE KEYS */;
-INSERT INTO `msa` VALUES (1,'MSA1',1,'2018-03-27 00:00:00','2018-03-31 00:00:00','Stuart','stuart@microsoft.com','34567890',NULL,NULL,NULL,'Ashish',NULL,NULL,NULL,NULL),(2,'Exp MSA',3,'2018-03-28 00:00:00','2018-04-27 00:00:00','mark','mark@expedia.com',NULL,NULL,NULL,NULL,'vivek',NULL,NULL,NULL,NULL);
+INSERT INTO `msa` VALUES (1,'MSA1',1,'2018-03-27 00:00:00','2018-03-31 00:00:00','Stuart','stuart@microsoft.com','34567890','milestone','20','guru','guru@client.com','Ashish',NULL,NULL,NULL,'Note on testing.docx'),(2,'Exp MSA',3,'2018-03-28 00:00:00','2018-04-27 00:00:00','mark','mark@expedia.com',NULL,NULL,NULL,NULL,NULL,'vivek',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `msa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,6 +151,7 @@ DROP TABLE IF EXISTS `sow`;
 CREATE TABLE `sow` (
   `SOW_Id` int(11) NOT NULL AUTO_INCREMENT,
   `SOW_Name` varchar(45) NOT NULL,
+  `SOW_Number` varchar(45) DEFAULT NULL,
   `MSA_Id` int(11) DEFAULT NULL,
   `SOW_Description` varchar(500) DEFAULT NULL,
   `SOW_Start_Date` datetime DEFAULT NULL,
@@ -161,9 +164,10 @@ CREATE TABLE `sow` (
   `SOW_Onsite_Rate` varchar(45) DEFAULT NULL,
   `SOW_Max_Onsite_Hours_Per_Day` varchar(45) DEFAULT NULL,
   `SOW_Offshore_Rate` varchar(45) DEFAULT NULL,
-  `SOW_Invoice_Term` varchar(45) DEFAULT NULL,
+  `SOW_Invoice_Frequency` varchar(45) DEFAULT NULL,
+  `SOW_Invoice_Credit_Period` varchar(45) DEFAULT NULL,
   `SOW_Travel` varchar(45) DEFAULT NULL,
-  `SOW_Document` longblob,
+  `SOW_Document` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`SOW_Id`),
   UNIQUE KEY `SOW_Id_UNIQUE` (`SOW_Id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
@@ -175,7 +179,7 @@ CREATE TABLE `sow` (
 
 LOCK TABLES `sow` WRITE;
 /*!40000 ALTER TABLE `sow` DISABLE KEYS */;
-INSERT INTO `sow` VALUES (1,'SOW1',1,'test','2018-03-27 00:00:00','2018-03-31 00:00:00','10000','10','22','12','10','1000','8','20','quarterly','120',NULL);
+INSERT INTO `sow` VALUES (1,'SOW1','1234',1,'test','2018-03-27 00:00:00','2018-03-31 00:00:00','10000','10','22','12','10','1000','8','20','monthly','10','120','Affine _ IT Proof submission forms FY 2017-18.xlsx');
 /*!40000 ALTER TABLE `sow` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -188,4 +192,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-28 16:55:20
+-- Dump completed on 2018-03-29 17:56:02
