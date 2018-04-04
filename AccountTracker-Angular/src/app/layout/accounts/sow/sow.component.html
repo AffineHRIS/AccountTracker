@@ -62,7 +62,7 @@
                                               <div class="row">
                                                   <label class="col-md-5"> Description  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
-                                                      <input class="form-control" type="text"  name="SOW_Description" [ngModel]="SOWDetails.SOW_Description "  #SOWDescription="ngModel"  placeholder="Description"  />
+                                                      <textarea class="form-control" type="text"  name="SOW_Description" [ngModel]="SOWDetails.SOW_Description "  #SOWDescription="ngModel"  placeholder="Description" ></textarea>
                                                   </div>
                                               </div>
                                           </div>
@@ -87,7 +87,18 @@
                                               <div class="row">
                                                   <label class="col-md-5"> SOW Value  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
-                                                      <input class="form-control" type="text"  name="SOW_Value" [ngModel]="SOWDetails.SOW_Value "  #SOWValue="ngModel"  placeholder="SOW Value"  />
+                                                    <div class="row">
+                                                      <div class="col-md-3">
+                                                        <select class="form-control"  name="SOW_Currency" [ngModel]="SOWDetails.SOW_Currency "  #SOWCurrency="ngModel" >
+                                                          <option value="INR">₹</option>
+                                                          <option value="USD">$</option>
+                                                          <option value="GBP">£</option>
+                                                        </select>
+                                                      </div>
+                                                      <div class="col-md-9">
+                                                        <input class="form-control" type="text"  name="SOW_Value" [ngModel]="SOWDetails.SOW_Value "  #SOWValue="ngModel"  placeholder="SOW Value"  />
+                                                      </div>
+                                                    </div>
                                                   </div>
                                               </div>
                                           </div>
@@ -107,9 +118,6 @@
                                                   </div>
                                               </div>
                                           </div>
-
-                                        </div>
-                                        <div class="col-6"><!--Right half-->
                                           <div class="form-group" >
                                               <div class="row">
                                                   <label class="col-md-5">Onsite Count  <span class="pull-right"> : </span> </label>
@@ -134,6 +142,10 @@
                                                   </div>
                                               </div>
                                           </div>
+
+                                        </div>
+                                        <div class="col-6"><!--Right half-->
+
                                           <div class="form-group" >
                                               <div class="row">
                                                   <label class="col-md-5">Offshore Count  <span class="pull-right"> : </span> </label>
@@ -152,9 +164,41 @@
                                           </div>
                                           <div class="form-group" >
                                               <div class="row">
+                                                  <label class="col-md-5">Max Offshore hours per day<span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="SOW_Max_Offshore_Hours_Per_Day" [ngModel]="SOWDetails.SOW_Max_Offshore_Hours_Per_Day "  #SOWMaxOffshoreHoursPerDay="ngModel"  placeholder="Max hours per day"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
                                                   <label class="col-md-5">Travel<span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <input class="form-control" type="text"  name="SOW_Travel" [ngModel]="SOWDetails.SOW_Travel "  #SOWTravel="ngModel"  placeholder="Travel Allowance"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Onsite Discount<span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="SOW_Onsite_Discount" [ngModel]="SOWDetails.SOW_Onsite_Discount "  #SOWOnsiteDiscount="ngModel"  placeholder="Onsite Discount"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Offshore Discount<span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="SOW_Offshore_Discount" [ngModel]="SOWDetails.SOW_Offshore_Discount "  #SOWOffshoreDiscount="ngModel"  placeholder="Offshore Discount"  />
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group" >
+                                              <div class="row">
+                                                  <label class="col-md-5">Additional<span class="pull-right"> : </span> </label>
+                                                  <div class="col-md-6">
+                                                      <input class="form-control" type="text"  name="SOW_Additional" [ngModel]="SOWDetails.SOW_Additional "  #SOWAdditional="ngModel"  placeholder="Additional info"  />
                                                   </div>
                                               </div>
                                           </div>
@@ -218,7 +262,7 @@
                                             <th> # Persons</th>
                                             <th> Onsite Rate </th>
                                             <th> Invoice Frequency </th>
-                                            <th></th>
+                                            <th>Edit</th>
                                         </tr>
                                     </thead>
                                     <tbody >
@@ -232,7 +276,7 @@
                                              </td>
                                              <td> {{ sow.SOW_Start_Date | date: 'mediumDate'}}  </td>
                                              <td> {{ sow.SOW_End_Date | date: 'mediumDate'}} </td>
-                                             <td> {{ sow.SOW_Value }} </td>
+                                             <td> {{ sow.SOW_Value | currency:sow.SOW_Currency:true:'1.2-2' }} </td>
                                              <td> {{ sow.SOW_No_Of_Persons }} </td>
                                              <td> {{ sow.SOW_Onsite_Rate }} </td>
                                              <td> {{ sow.SOW_Invoice_Frequency }} </td>

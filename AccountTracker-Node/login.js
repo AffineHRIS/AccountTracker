@@ -79,7 +79,7 @@ access.myFunc1();
           } else {
             res.json({
               status:false,
-              message:"Username does not exists."
+              message:"Username does not exist."
             });
           }
         }

@@ -89,7 +89,12 @@ access.myFunc1();
         SOW_Invoice_Frequency: req.body.SOW_Invoice_Frequency,
         SOW_Invoice_Credit_Period: req.body.SOW_Invoice_Credit_Period,
         SOW_No_Of_Persons: req.body.SOW_No_Of_Persons,
-        SOW_Document: req.body.SOW_Document
+        SOW_Document: req.body.SOW_Document,
+        SOW_Max_Offshore_Hours_Per_Day: req.body.SOW_Max_Offshore_Hours_Per_Day,
+        SOW_Currency: req.body.SOW_Currency,
+        SOW_Onsite_Discount: req.body.SOW_Onsite_Discount,
+        SOW_Offshore_Discount: req.body.SOW_Offshore_Discount,
+        SOW_Additional: req.body.SOW_Additional
       })
       .then(function(response) {
         //result['data'] = req.body;
@@ -126,7 +131,12 @@ access.myFunc1();
         SOW_Invoice_Credit_Period: req.body.SOW_Invoice_Credit_Period,
         SOW_No_Of_Persons: req.body.SOW_No_Of_Persons,
         SOW_Travel: req.body.SOW_Travel,
-        SOW_Document: req.body.SOW_Document
+        SOW_Document: req.body.SOW_Document,
+        SOW_Max_Offshore_Hours_Per_Day: req.body.SOW_Max_Offshore_Hours_Per_Day,
+        SOW_Currency: req.body.SOW_Currency,
+        SOW_Onsite_Discount: req.body.SOW_Onsite_Discount,
+        SOW_Offshore_Discount: req.body.SOW_Offshore_Discount,
+        SOW_Additional: req.body.SOW_Additional
       })
       .where('SOW_Id', req.body.SOW_Id)
       .then(function(response) {
