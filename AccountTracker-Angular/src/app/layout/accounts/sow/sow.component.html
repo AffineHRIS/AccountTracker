@@ -5,10 +5,20 @@
             <h6 class="text-muted-header"> SOW Tracker </h6>
         </div>
         <div class="col-6">
-            <i class="fa fa-refresh fa-1x affine-blue-text-noline pull-right" (click)="refresh(selectedItems)"></i>
+            <!-- <i class="fa fa-refresh fa-1x affine-blue-text-noline pull-right" (click)="refresh(selectedItems)"></i> -->
         </div>
     </div>
-
+    <div class="breadcrumbs">
+      <a [routerLink]="['/basic']" class="nav-link-action bc-text">
+          Account
+      </a>
+      <span class="gt-symbol">></span>
+        <a [routerLink]="['/msa']" [queryParams]="{id:Account_Id }" href="javascript:void(0)" class="nav-link-action bc-text">
+            MSA
+        </a>
+        <span class="gt-symbol">></span>
+        <span class="bc-text active">SOW</span>
+    </div>
     <div class="horizontal-pipe-line"></div>
 
 	<div class="tabs-details-container">
@@ -248,7 +258,7 @@
                           <div class="row" style="background:#f7f7f7">
                               <div class="col-12">
 
-                                <table class="table table-bordered table-striped cus-table" [mfData]="SOWList" #mf="mfDataTable" [mfRowsOnPage]="5">
+                                <table class="table table-bordered table-striped cus-table" [mfData]="SOWList" #mf="mfDataTable" [mfRowsOnPage]="10">
                                     <thead class="thead-inverse">
                                         <tr>
                                             <th>S.No</th>
@@ -262,15 +272,15 @@
                                             <th> # Persons</th>
                                             <th> Onsite Rate </th>
                                             <th> Invoice Frequency </th>
-                                            <th>Edit</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody >
-                                         <tr *ngFor="let sow of mf.data;let i = index">
+                                    <tbody *ngIf = "isSOW">
+                                         <tr *ngFor="let sow of mf.data;let i = index" >
                                              <td> {{i+1}} </td>
                                              <td> {{ sow.SOW_Name }} </td>
                                              <td> {{ sow.SOW_Number }} </td>
-                                             <td> {{ MSAName }} </td>
+                                             <td> {{ sow.MSA_Name }} </td>
                                              <td>
                                                <a href="{{SOWFilePath+sow.SOW_Document}}" target="_blank"><i class="fa fa-download" *ngIf = "sow.SOW_Document === null ? false:true;"></i> {{ sow.SOW_Document }} </a>
                                              </td>
@@ -280,18 +290,21 @@
                                              <td> {{ sow.SOW_No_Of_Persons }} </td>
                                              <td> {{ sow.SOW_Onsite_Rate }} </td>
                                              <td> {{ sow.SOW_Invoice_Frequency }} </td>
-                                             <td><i class = "fa fa-edit" (click) = "editSOW(sow)"></i></td>
+                                             <td>
+                                               <i class = "fa fa-edit" (click) = "editSOW(sow)"></i>
+                                              <i class="fa fa-trash action-icon margin-left" (click)="deleteSOW(sow)"></i>
+                                             </td>
                                          </tr>
                                     </tbody>
-                                    <tbody *ngIf = "!SOWList">
+                                    <tbody *ngIf = "!isSOW">
                                       <tr>
-                                        <td colspan = "11" style="text-align:center;">No Data</td>
+                                        <td colspan = "12" style="text-align:center;">No Data</td>
                                       </tr>
                                     </tbody>
                                     <tfoot>
                                       <tr>
-                                          <td colspan="5">
-                                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                          <td colspan="12">
+                                              <mfBootstrapPaginator [rowsOnPageSet]="[10,20,30]"></mfBootstrapPaginator>
                                           </td>
                                       </tr>
                                       </tfoot>

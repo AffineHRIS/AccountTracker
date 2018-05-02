@@ -5,7 +5,7 @@
             <h6 class="text-muted-header"> Account Tracker </h6>
         </div>
         <div class="col-6">
-            <i class="fa fa-refresh fa-1x affine-blue-text-noline pull-right" (click)="refresh(selectedItems)"></i>
+            <!-- <i class="fa fa-refresh fa-1x affine-blue-text-noline pull-right" (click)="refresh(selectedItems)"></i> -->
         </div>
     </div>
 
@@ -125,8 +125,8 @@
 
                           <div class="row" style="background:#f7f7f7">
                               <div class="col-12">
-
-                                <table class="table table-bordered table-striped cus-table" [mfData]="accList" #mf="mfDataTable" [mfRowsOnPage]="5">
+<button class="btn btn-default export-excel affine-blue pull-right" (click)="fileDownload()">Export <i class="fa fa-download"></i></button>
+                                <table class="table table-bordered table-striped cus-table" [mfData]="accList" #mf="mfDataTable" [mfRowsOnPage]="10">
                                     <thead class="thead-inverse">
                                         <tr>
                                             <th>S.No</th>
@@ -138,14 +138,14 @@
                                             <th> City </th>
                                             <th> Client Email</th>
                                             <th> Client Phone </th>
-                                            <th>Edit</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                          <tr *ngFor="let account of mf.data;let i = index">
                                              <td> {{i+1}} </td>
                                              <td>
-                                               <a  [routerLink]="['/msa']" [queryParams]="{id:getAccountId(account), name: getAccountName(account) }" href="javascript:void(0)" >
+                                               <a  [routerLink]="['/msa']" [queryParams]="{id:getAccountId(account) }" href="javascript:void(0)" >
                                                    {{ account.Account_Name }}
                                                </a>
                                              </td>
@@ -156,13 +156,21 @@
                                              <td> {{ account.City }} </td>
                                              <td> {{ account.Email_Id }} </td>
                                              <td> {{ account.Phone_Number }} </td>
-                                             <td><i class = "fa fa-edit" (click) = "editAccount(account)"></i></td>
+                                             <td>
+                                               <i class = "fa fa-edit" (click) = "editAccount(account)"></i>
+                                               <i class="fa fa-trash action-icon margin-left" (click)="deleteAccount(account)"></i>
+                                             </td>
                                          </tr>
+                                    </tbody>
+                                    <tbody *ngIf = "!accList">
+                                      <tr>
+                                        <td colspan = "10" style="text-align:center;">No Data</td>
+                                      </tr>
                                     </tbody>
                                     <tfoot>
                                       <tr>
-                                          <td colspan="5">
-                                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                          <td colspan="10">
+                                              <mfBootstrapPaginator [rowsOnPageSet]="[10,20,30]"></mfBootstrapPaginator>
                                           </td>
                                       </tr>
                                       </tfoot>

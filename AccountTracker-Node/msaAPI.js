@@ -43,7 +43,11 @@ access.myFunc1();
       var sqlQuery = '';
       if(id)
       {
-        sqlQuery = "SELECT * FROM accountstracker.msa WHERE Account_Id ='"+id+"'";
+        //sqlQuery = "SELECT * FROM accountstracker.msa WHERE Account_Id ='"+id+"'";
+        sqlQuery = `SELECT a.Account_Id, a.Account_Name, m.*
+                    FROM accountstracker.account a
+                    left join accountstracker.msa m ON  a.Account_Id = m.Account_Id
+                    WHERE a.Account_ID =`+id;
       }
       else
       {
@@ -136,6 +140,26 @@ access.myFunc1();
           console.log('Error while updating MSA details: %s', err.toString());
           res.status(400).send(err.toString());
       });
+    });
+
+    // Delete an MSA
+    msaAPI.delete('/api/deleteMSA/:MSA_Id', function (req, res) {
+      var result = {};
+      return knex1("msa")
+      .del()
+      .where('MSA_Id', req.params.MSA_Id)
+      .then(function(response) {
+        //result['data'] = req.body;
+        result['result'] = 'success';
+        result['message'] = 'MSA deleted successfully!';
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send( result );
+      })
+      .catch(function (err) {
+          console.log('Error while deleting MSA: %s', err.toString());
+          res.status(400).send(err.toString());
+      });
+
     });
 
 module.exports = msaAPI;

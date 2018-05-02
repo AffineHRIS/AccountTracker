@@ -5,10 +5,16 @@
             <h6 class="text-muted-header"> MSA Tracker </h6>
         </div>
         <div class="col-6">
-            <i class="fa fa-refresh fa-1x affine-blue-text-noline pull-right" (click)="refresh(selectedItems)"></i>
+            <!-- <i class="fa fa-refresh fa-1x affine-blue-text-noline pull-right" (click)="refresh(selectedItems)"></i> -->
         </div>
     </div>
-
+    <div class="breadcrumbs">
+      <a [routerLink]="['/basic']" class="nav-link-action bc-text">
+          Account
+      </a>
+        <span class="gt-symbol">></span>
+        <span class="bc-text active">MSA</span>
+    </div>
     <div class="horizontal-pipe-line"></div>
 
 	<div class="tabs-details-container">
@@ -164,7 +170,7 @@
                           <div class="row" style="background:#f7f7f7">
                               <div class="col-12">
 
-                                <table class="table table-bordered table-striped cus-table" [mfData]="MSAList" #mf="mfDataTable" [mfRowsOnPage]="5">
+                                <table class="table table-bordered table-striped cus-table" [mfData]="MSAList" #mf="mfDataTable" [mfRowsOnPage]="10">
                                     <thead class="thead-inverse">
                                         <tr>
                                             <th>S.No</th>
@@ -176,36 +182,39 @@
                                             <th> Client Signing Authority </th>
                                             <th> Contact Email</th>
                                             <th> Payment Frequency </th>
-                                            <th>Edit</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody >
+                                    <tbody *ngIf = "isMSA">
                                          <tr *ngFor="let msa of mf.data;let i = index">
                                              <td> {{i+1}} </td>
                                              <td>
-                                               <a  [routerLink]="['/sow']" [queryParams]="{id:getMSAId(msa), name: getMSAName(msa) }" href="javascript:void(0)" >
+                                               <a  [routerLink]="['/sow']" [queryParams]="{id:msa.MSA_Id }" href="javascript:void(0)" >
                                                  {{ msa.MSA_Name }}
                                                </a>
                                              </td>
-                                             <td> {{accountName}} </td>
+                                             <td> {{msa.Account_Name}} </td>
                                              <td> <a href="{{MSAFilePath + msa.MSA_Document}}" target="_blank"><i class="fa fa-download" *ngIf = "msa.MSA_Document === null ? false:true;"></i> {{ msa.MSA_Document }} </a> </td>
                                              <td> {{ msa.MSA_Start_Date | date: 'mediumDate'}}  </td>
                                              <td> {{ msa.MSA_End_Date | date: 'mediumDate'}} </td>
                                              <td> {{ msa.MSA_Client_Signing_Authority }} </td>
                                              <td> {{ msa.MSA_Client_Signing_Authority_Email }} </td>
                                              <td> {{ msa.MSA_Payment_Frequency }} </td>
-                                             <td><i class = "fa fa-edit" (click) = "editMSA(msa)"></i></td>
+                                             <td>
+                                               <i class = "fa fa-edit" (click) = "editMSA(msa)"></i>
+                                               <i class="fa fa-trash action-icon margin-left" (click)="deleteMSA(msa)"></i>
+                                             </td>
                                          </tr>
                                     </tbody>
-                                    <tbody *ngIf = "!MSAList">
+                                    <tbody *ngIf = "!isMSA">
                                       <tr>
                                         <td colspan = "10" style="text-align:center;">No Data</td>
                                       </tr>
                                     </tbody>
                                     <tfoot>
                                       <tr>
-                                          <td colspan="5">
-                                              <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                                          <td colspan="10">
+                                              <mfBootstrapPaginator [rowsOnPageSet]="[10,20,30]"></mfBootstrapPaginator>
                                           </td>
                                       </tr>
                                       </tfoot>

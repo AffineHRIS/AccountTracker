@@ -53,6 +53,16 @@ export class SowService {
             { headers: headers }
         );
     }
+    // Delete SOW details.
+    deleteSOWDetails(SOWId) {
+        var url = 'http://'+ this.globals.apiServerIP + ':3200/api/deleteSOW/' + SOWId;
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.httpClient.delete(url).toPromise()
+        .then(response => {
+          return response;
+        })
+        .catch(this.handleError);
+    }
 
     private handleError(error: any): Promise<any> {
         console.error('An error occurred while fetching the details.', error); // for demo purposes only

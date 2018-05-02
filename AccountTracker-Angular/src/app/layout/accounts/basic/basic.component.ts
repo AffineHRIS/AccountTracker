@@ -5,6 +5,8 @@ import { TranslateService } from '@ngx-translate/core';
 import {  AccountDetailService } from '../../../shared';
 import { Globals } from '../../../shared';
 import { CurrencyPipe } from '@angular/common';
+import { utils, write, WorkBook } from 'xlsx';
+import { saveAs } from 'file-saver';
 
 import { DataTable, DataTableResource } from 'angular-4-data-table';
 
@@ -24,6 +26,7 @@ export class BasicComponent implements OnInit {
     accList:any;
     SuccessSave : string = '';
     SuccessMail : string = '';
+    accDetailsInArray: any = [];
 
 
     @ViewChild(DataTable) accountsTable: DataTable;
@@ -49,6 +52,7 @@ export class BasicComponent implements OnInit {
       this.accountDetailService.getAccountList().subscribe(
           (response) =>{
               this.accList = response[0].data;
+              this.accDetailsInArray = Object.assign([], response[0].data);
           },
           (error) => {
               alert(error);
@@ -73,6 +77,31 @@ export class BasicComponent implements OnInit {
     }
     getAccountName(account) {
       return account.Account_Name;
+    }
+
+    deleteAccount(account): void {
+      var deleteAccount = confirm("Delete this account ?");
+      if ( deleteAccount )  {
+        var model = this.getAccountId(account);
+        if ( model ) {
+          this.accountDetailService.deleteAccountDetails(model)
+          .then(
+            (response) =>{
+              // let body = response.json();
+              let body = response;
+              this.getAccounts();
+              alert(body.message);
+            },
+            (error) => {
+              this.getAccounts();
+              alert(error);
+              console.log(error);
+            }
+          );
+        } else {
+          alert("Account details are not found. Please report to the administrator. " + model.toString());
+        }
+      }
     }
 
     save(model : any) {
@@ -126,6 +155,44 @@ export class BasicComponent implements OnInit {
         else {
             alert("Required fields are manadatory")
         }
+    }
+
+    fileDownload() : void {
+
+      this.accountDetailService.getDetailedReport().subscribe(
+          (response) =>{
+              var fileData = response[0].data;
+
+              // for (let i = 0; i < fileData.length; i++) {
+              //   for (let j = 0; j < this.hiddenColumnsList.length; j++) {
+              //       delete fileData[i][this.hiddenColumnsList[j]];
+              //   }
+              // }
+
+              const ws_name = 'Account_Details';
+              const wb: WorkBook = { SheetNames: [], Sheets: {} };
+              const ws: any = utils.json_to_sheet(fileData);
+              wb.SheetNames.push(ws_name);
+              wb.Sheets[ws_name] = ws;
+              const wbout = write(wb, { bookType: 'xlsx', bookSST: true, type: 'binary' });
+
+              var s2ab = function(s) {
+                const buf = new ArrayBuffer(s.length);
+                const view = new Uint8Array(buf);
+                for (let i = 0; i !== s.length; ++i) {
+                  view[i] = s.charCodeAt(i) & 0xFF;
+                };
+                return buf;
+              }
+              var date = new Date();
+              var timestamp = date.getUTCDate()+"-"+(date.getUTCMonth()+1)+"-"+date.getUTCFullYear();
+              saveAs(new Blob([s2ab(wbout)], { type: 'application/octet-stream' }), 'Accounts Report '+timestamp+'.xlsx');
+          },
+          (error) => {
+              alert(error);
+              console.log(error);
+          }
+      );
     }
 
 }

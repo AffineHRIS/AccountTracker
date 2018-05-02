@@ -1,0 +1,26 @@
+ALTER TABLE `accountstracker`.`sow` 
+ADD INDEX `fk_SOW_MSA_Id_idx` (`MSA_Id` ASC);
+ALTER TABLE `accountstracker`.`sow` 
+ADD CONSTRAINT `fk_SOW_MSA_Id`
+  FOREIGN KEY (`MSA_Id`)
+  REFERENCES `accountstracker`.`msa` (`MSA_Id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `accountstracker`.`msa` 
+ADD INDEX `fk_MSA_Account_Id_idx` (`Account_Id` ASC);
+ALTER TABLE `accountstracker`.`msa` 
+ADD CONSTRAINT `fk_MSA_Account_Id`
+  FOREIGN KEY (`Account_Id`)
+  REFERENCES `accountstracker`.`account` (`Account_Id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `accountstracker`.`msa` 
+ADD INDEX `fk_MSA_Account_Id_idx` (`Account_Id` ASC);
+ALTER TABLE `accountstracker`.`msa` 
+ADD CONSTRAINT `fk_MSA_Account_Id`
+  FOREIGN KEY (`Account_Id`)
+  REFERENCES `accountstracker`.`account` (`Account_Id`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;

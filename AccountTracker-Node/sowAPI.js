@@ -44,7 +44,12 @@ access.myFunc1();
       var sqlQuery = '';
       if(id)
       {
-        sqlQuery = "SELECT * FROM accountstracker.sow WHERE MSA_Id ='"+id+"'";
+        //sqlQuery = "SELECT * FROM accountstracker.sow WHERE MSA_Id ='"+id+"'";
+        sqlQuery = `SELECT a.Account_Id, a.Account_Name, m.MSA_Id,m.MSA_Name,s.*
+                    FROM accountstracker.account a
+                    left join accountstracker.msa m ON  a.Account_Id = m.Account_Id
+                    left join accountstracker.sow s ON m.MSA_Id = s.MSA_Id
+                    WHERE m.MSA_Id =`+id
       }
       else
       {
@@ -150,6 +155,26 @@ access.myFunc1();
           console.log('Error while updating SOW details: %s', err.toString());
           res.status(400).send(err.toString());
       });
+    });
+
+    // Delete an SOW
+    sowAPI.delete('/api/deleteSOW/:SOW_Id', function (req, res) {
+      var result = {};
+      return knex1("sow")
+      .del()
+      .where('SOW_Id', req.params.SOW_Id)
+      .then(function(response) {
+        //result['data'] = req.body;
+        result['result'] = 'success';
+        result['message'] = 'SOW deleted successfully!';
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send( result );
+      })
+      .catch(function (err) {
+          console.log('Error while deleting SOW: %s', err.toString());
+          res.status(400).send(err.toString());
+      });
+
     });
 
 module.exports = sowAPI;

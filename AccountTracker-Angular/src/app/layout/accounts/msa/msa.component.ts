@@ -27,6 +27,7 @@ export class MsaComponent implements OnInit {
   accountName : string;
   MSA_thumbHidden:boolean = true;
   MSAFilePath = 'http://'+ this.globals.apiServerIP +':3200/uploads/msa/';
+  isMSA : any;
 
 
   @ViewChild(DataTable) MSATable: DataTable;
@@ -80,6 +81,7 @@ export class MsaComponent implements OnInit {
     this.msaService.getMSAList(this.accountId).subscribe(
         (response) =>{
             this.MSAList = response[0].data;
+            this.isMSA = response[0].data[0].MSA_Id ? true : false;
         },
         (error) => {
             alert(error);
@@ -107,6 +109,31 @@ export class MsaComponent implements OnInit {
   }
   getMSAName(msa) {
     return msa.MSA_Name;
+  }
+
+  deleteMSA(msa): void {
+    var deleteMSA = confirm("Delete this MSA ?");
+    if ( deleteMSA )  {
+      var model = this.getMSAId(msa);
+      if ( model ) {
+        this.msaService.deleteMSADetails(model)
+        .then(
+          (response) =>{
+            // let body = response.json();
+            let body = response;
+            this.getMSA();
+            alert(body.message);
+          },
+          (error) => {
+            this.getMSA();
+            alert(error);
+            console.log(error);
+          }
+        );
+      } else {
+        alert("MSA details are not found. Please report to the administrator. " + model.toString());
+      }
+    }
   }
 
   save(model : any) {

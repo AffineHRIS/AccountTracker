@@ -27,7 +27,8 @@ export class SowComponent implements OnInit {
   MSAName : string;
   SOW_thumbHidden:boolean = true;
   SOWFilePath = 'http://'+ this.globals.apiServerIP +':3200/uploads/sow/';
-
+  Account_Id : any;
+  isSOW : any;
 
   @ViewChild(DataTable) SOWTable: DataTable;
 
@@ -79,6 +80,8 @@ export class SowComponent implements OnInit {
     this.sowService.getSOWList(this.MSAId).subscribe(
         (response) =>{
             this.SOWList = response[0].data;
+            this.Account_Id = response[0].data[0].Account_Id;
+            this.isSOW = response[0].data[0].SOW_Id ? true : false;
         },
         (error) => {
             alert(error);
@@ -99,6 +102,35 @@ export class SowComponent implements OnInit {
     //this.SOWDetails.Account_Name = this.accountName;
     this.addSOWForm = true;
 
+  }
+
+  getSOWId(sow) {
+    return sow.SOW_Id;
+  }
+
+  deleteSOW(sow): void {
+    var deleteSOW = confirm("Delete this SOW ?");
+    if ( deleteSOW )  {
+      var model = this.getSOWId(sow);
+      if ( model ) {
+        this.sowService.deleteSOWDetails(model)
+        .then(
+          (response) =>{
+            // let body = response.json();
+            let body = response;
+            this.getSOW();
+            alert(body.message);
+          },
+          (error) => {
+            this.getSOW();
+            alert(error);
+            console.log(error);
+          }
+        );
+      } else {
+        alert("SOW details are not found. Please report to the administrator. " + model.toString());
+      }
+    }
   }
 
   save(model : any) {

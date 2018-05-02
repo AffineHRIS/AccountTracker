@@ -54,6 +54,17 @@ export class MsaService {
         );
     }
 
+    // Delete MSA details.
+    deleteMSADetails(MSAId) {
+        var url = 'http://'+ this.globals.apiServerIP + ':3200/api/deleteMSA/' + MSAId;
+        const headers = new Headers({'Content-Type': 'application/json'});
+        return this.httpClient.delete(url).toPromise()
+        .then(response => {
+          return response;
+        })
+        .catch(this.handleError);
+    }
+
     private handleError(error: any): Promise<any> {
         console.error('An error occurred while fetching the details.', error); // for demo purposes only
         return Promise.reject(error.message || error);

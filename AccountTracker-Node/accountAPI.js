@@ -43,6 +43,29 @@ access.myFunc1();
       });
     });
 
+    //Get account details report
+    accountAPI.get('/accountReport/', function (req, res) {
+      var id = req.params.data;
+      var sqlQuery = `SELECT *
+                      FROM accountstracker.account a
+                      left join accountstracker.msa m ON  a.Account_Id = m.Account_Id
+                      left join accountstracker.sow s ON m.MSA_Id = s.MSA_Id `;
+      con.query(sqlQuery, function(err, rows, fields) {
+        if (!err){
+          var response = [];
+          if (rows.length != 0) {
+            response.push({'result' : 'success', 'data' : rows});
+          } else {
+            response.push({'result' : 'error', 'msg' : 'No Results Found'});
+          }
+          res.setHeader('Content-Type', 'application/json');
+          res.status(200).send(JSON.stringify(response));
+        } else {
+          res.status(400).send(err);
+        }
+      });
+    });
+
 
     //POST / save account details
     accountAPI.post('/api/addAccount', function (req, res) {
@@ -97,6 +120,26 @@ access.myFunc1();
           console.log('Error while updating account details: %s', err.toString());
           res.status(400).send(err.toString());
       });
+    });
+
+    // Delete an account
+    accountAPI.delete('/api/deleteAccount/:Account_Id', function (req, res) {
+      var result = {};
+      return knex1("account")
+      .del()
+      .where('Account_Id', req.params.Account_Id)
+      .then(function(response) {
+        //result['data'] = req.body;
+        result['result'] = 'success';
+        result['message'] = 'Account deleted successfully!';
+        res.setHeader('Content-Type', 'application/json');
+        res.status(200).send( result );
+      })
+      .catch(function (err) {
+          console.log('Error while deleting account: %s', err.toString());
+          res.status(400).send(err.toString());
+      });
+
     });
 
 module.exports = accountAPI;
