@@ -1,0 +1,205 @@
+$sky-blue : #24AEE4;
+$green : #42A948;
+$violet: #8781bd;
+$red : #a94442;
+// .ng-valid[required], .ng-valid.required  {
+//     border-left: 5px solid #42A948; /* green */
+// }
+input.ng-invalid, select.ng-invalid {
+    border-left: 5px solid $red; /* red */
+}
+.table thead th {
+    background: #93c953;
+    color: #fff;
+    font-size: 13px;
+}
+.margin-left {
+  margin-left: 5px;
+}
+.tab-h6 {
+    margin:10px;
+    font-size:14px;
+    color:$sky-blue;
+    font-weight: 600;
+}
+.no-border {
+  border:none;
+}
+.action-col {
+  width:80px;
+}
+
+.box-blue {
+    //padding: 20px;
+    background-color: $sky-blue;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0px 10px 5px 0px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    font-weight: bold;
+    color: #ffffff;
+    .box-title {
+      border-radius: 0px 0px 4px 4px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      background-color: white;
+      color: $sky-blue;
+    }
+}
+.box-violet {
+    //padding: 20px;
+    background-color: $violet;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0px 10px 5px 0px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    font-weight: bold;
+    color: #ffffff;
+    .box-title {
+      border-radius: 0px 0px 4px 4px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      background-color: white;
+      color: $violet;
+    }
+}
+.box-green {
+    //padding: 20px;
+    background-color: $green;
+    border-radius: 4px;
+    text-align: center;
+    margin: 0px 10px 5px 0px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    font-weight: bold;
+    color: #ffffff;
+    .box-title {
+      border-radius: 0px 0px 4px 4px;
+      box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+      background-color: white;
+      color: $green;
+    }
+}
+.tab-info {
+    overflow: visible;
+    padding:15px;
+    .form-group {
+      overflow:hidden;
+      margin: 0 0 0 10px;
+    }
+    .anchor {
+      color:$sky-blue !important;
+      text-decoration:underline !important;
+      cursor: pointer;
+    }
+    .form-group.custom-overflow {
+        overflow: visible;
+    }
+    .user-profile {
+      border:2px solid #ddd;
+    }
+    .align-center {
+      text-align: center;
+      vertical-align: middle;
+    }
+    .btn-skyblue {
+      background: $sky-blue;
+      color:#fff;
+      margin:10px auto;
+    }
+    .align-right {
+      text-align: right;
+    }
+
+    label {
+        font-size: 12px;
+        font-weight: bold;
+        margin: 7px 0;
+    }
+    input.form-control {
+        font-size: 12px;
+        padding: 0rem 0.5rem;
+        height: 30px;
+        margin-bottom: 2px;
+    }
+    input[type="file"] {
+      font-size: 12px;
+      width: 100px;
+      line-height: 22px;
+      border: 0px;
+    }
+    button#btnSubmit {
+        font-size: 12px;
+        width: 85px;
+    }
+    select.form-control {
+        font-size: 12px;
+        padding: 0rem 0.5rem;
+        height: 30px;
+        margin-bottom: 2px;
+    }
+    input.form-control:disabled{
+        //background-color: #fff;
+        //border-color: #fff;
+        border:none;
+        background:none;
+        cursor: default;
+    }
+    select.form-control:disabled {
+        //background-color: #fff;
+        //border-color: #fff;
+        -webkit-appearance: none;
+        border:none;
+        background:none;
+        width: auto;
+        padding-right: 0;
+    }
+    select[multiple].form-control:disabled {
+        //background-color: #fff;
+        //border-color: #fff;
+        overflow: hidden;
+    }
+    textarea.form-control {
+        font-size: 12px;
+    }
+    textarea.form-control:disabled {
+        font-size: 12px;
+        //background-color: #fff;
+        //border-color: #fff;
+        resize: none;
+    }
+    .tab-h6 {
+        margin:10px;
+        font-size:14px;
+        color:$sky-blue;
+        font-weight: 600;
+    }
+    .asset-group {
+        border-top:5px solid $sky-blue;
+        background: #eeeeee;
+        padding:15px;
+    }
+    .no-margin-left {
+        margin-left:0px !important;
+    }
+    .control-label {
+        font-weight: bold;
+    }
+    span.radio-text {
+        font-size: 12px;
+    }
+    span.side-text {
+        font-size: 12px;
+    }
+    span.post-fix-text {
+        font-size: 12px;
+    }
+
+    .alert {
+        position: absolute;
+        font-size: 12px;
+	    padding: 5px 10px;
+        z-index: 1;
+    }
+    .form-group .row > * {
+        position: unset;
+    }
+
+}

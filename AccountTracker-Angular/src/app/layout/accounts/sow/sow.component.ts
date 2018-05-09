@@ -29,6 +29,9 @@ export class SowComponent implements OnInit {
   SOWFilePath = 'http://'+ this.globals.apiServerIP +':3200/uploads/sow/';
   Account_Id : any;
   isSOW : any;
+  sowId : any;
+  enablePr = false;
+  showPr = false;
 
   @ViewChild(DataTable) SOWTable: DataTable;
 
@@ -73,6 +76,7 @@ export class SowComponent implements OnInit {
 
   hideTab() : void {
       this.addSOWForm = false;
+      this.showPr = false;
   }
 
   getSOW(): void {
@@ -94,6 +98,8 @@ export class SowComponent implements OnInit {
       this.form.reset();
       this.SOWDetails = {};
       this.addSOWForm = true;
+      this.enablePr = false;
+      this.showPr = false;
 
   }
   editSOW(sow) {
@@ -101,11 +107,21 @@ export class SowComponent implements OnInit {
     this.SOWDetails = sow;
     //this.SOWDetails.Account_Name = this.accountName;
     this.addSOWForm = true;
+    this.sowId = this.getSOWId(sow);
+    this.enablePr = true;
 
   }
 
   getSOWId(sow) {
     return sow.SOW_Id;
+  }
+
+  showProfitability() {
+    this.showPr = true;
+  }
+
+  hideProfitability() {
+    this.showPr = false;
   }
 
   deleteSOW(sow): void {
@@ -152,6 +168,7 @@ export class SowComponent implements OnInit {
                         this.SuccessSave = "";
                     },4000);
                     this.addSOWForm = false;
+                    this.showPr = false;
                 },
                 (error) => {
                     alert(error);
@@ -173,6 +190,7 @@ export class SowComponent implements OnInit {
                         this.SuccessSave = "";
                     },4000);
                     this.addSOWForm = false;
+                    this.showPr = false;
                 },
                 (error) => {
                     alert(error);

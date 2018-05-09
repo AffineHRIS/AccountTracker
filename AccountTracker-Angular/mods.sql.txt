@@ -24,3 +24,22 @@ ADD CONSTRAINT `fk_MSA_Account_Id`
   REFERENCES `accountstracker`.`account` (`Account_Id`)
   ON DELETE CASCADE
   ON UPDATE CASCADE;
+
+
+CREATE TABLE `accountstracker`.`profitability` (
+  `p_Id` INT(10) NOT NULL AUTO_INCREMENT,
+  `SOW_Id` INT(10) NULL,
+  `Profitability_Resource_Level` VARCHAR(45) NULL,
+  `Profitability_Resource_Type` VARCHAR(45) NULL,
+  `Profitability_No_Of_Resources` INT NULL,
+  `Profitability_No_Of_weeks` INT NULL,
+  `Rate` INT NULL,
+  `Cost` INT NULL,
+  PRIMARY KEY (`p_Id`),
+  UNIQUE INDEX `p_Id_UNIQUE` (`p_Id` ASC),
+  INDEX `SOW_Profit_FK_idx` (`SOW_Id` ASC),
+  CONSTRAINT `SOW_Profit_FK`
+    FOREIGN KEY (`SOW_Id`)
+    REFERENCES `accountstracker`.`sow` (`SOW_Id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);

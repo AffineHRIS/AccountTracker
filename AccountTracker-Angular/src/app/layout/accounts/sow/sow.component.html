@@ -80,7 +80,7 @@
                                               <div class="row">
                                                   <label class="col-md-5"> Start Date <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
-                                                      <input class="form-control" type="date"  name="SOW_Start_Date" [ngModel]="SOWDetails.SOW_Start_Date | date:'yyyy-MM-dd'"  #SOWStartDate="ngModel"  />
+                                                      <input class="form-control" type="date"  name="SOW_Start_Date" [ngModel]="SOWDetails.SOW_Start_Date | date:'yyyy-MM-dd'"  #SOWStartDate="ngModel" required />
                                                   </div>
                                               </div>
                                           </div>
@@ -89,7 +89,7 @@
                                                   <label class="col-md-5"> End Date  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <!-- <input class="form-control" type="date"  name="SOW_End_Date" [ngModel]="SOWDetails.SOW_End_Date" (ngModelChange)="SOWDetails.SOW_End_Date=$event" #SOWEndDate="ngModel"    /> -->
-                                                      <input type="date" class="form-control"  name="SOW_End_Date"  [ngModel] ="SOWDetails.SOW_End_Date | date:'yyyy-MM-dd'"   #SOWEndDate="ngModel"  />
+                                                      <input type="date" class="form-control"  name="SOW_End_Date"  [ngModel] ="SOWDetails.SOW_End_Date | date:'yyyy-MM-dd'"   #SOWEndDate="ngModel" required />
                                                   </div>
                                               </div>
                                           </div>
@@ -99,14 +99,14 @@
                                                   <div class="col-md-6">
                                                     <div class="row">
                                                       <div class="col-md-3">
-                                                        <select class="form-control"  name="SOW_Currency" [ngModel]="SOWDetails.SOW_Currency "  #SOWCurrency="ngModel" >
+                                                        <select class="form-control"  name="SOW_Currency" [ngModel]="SOWDetails.SOW_Currency "  #SOWCurrency="ngModel" required>
                                                           <option value="INR">₹</option>
                                                           <option value="USD">$</option>
                                                           <option value="GBP">£</option>
                                                         </select>
                                                       </div>
                                                       <div class="col-md-9">
-                                                        <input class="form-control" type="text"  name="SOW_Value" [ngModel]="SOWDetails.SOW_Value "  #SOWValue="ngModel"  placeholder="SOW Value"  />
+                                                        <input class="form-control" type="number" min=0 name="SOW_Value" [ngModel]="SOWDetails.SOW_Value "  #SOWValue="ngModel"  placeholder="SOW Value"  required/>
                                                       </div>
                                                     </div>
                                                   </div>
@@ -248,8 +248,23 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-12">
-                                            <button type="submit" class="btn btn-primary btn-cus-grey pull-right" [hidden]="submitButton" > SUBMIT </button>
+                                          <div class="row">
+                                            <div class="col-md-9"></div>
+                                            <div class="col-md-3">
+                                              <input type = "button" class="btn btn-success btn-cus-grey" [disabled]="!enablePr" (click)="showProfitability()" value = "Profitability"/>
+                                              <button type="submit" class="btn btn-primary btn-cus-grey pull-right" [hidden]="submitButton" > SUBMIT </button>
+                                            </div>
+                                          </div>
                                         </div>
+                                    </div>
+                                    <hr>
+                                    <div class="row">
+                                      <div class="col-md-11">
+                                        <app-sow-profitability *ngIf = "showPr" [sowId] ="sowId" [profitabilityDetails] = "profitabilityDetails" [disableInputs]="disableInputs" (newEmergency)="getEmergencyDetails($event)"></app-sow-profitability>
+                                      </div>
+                                      <div class="col-md-1">
+                                          <i class="fa fa-times rm-work-exp" aria-hidden="true" [hidden]= "!showPr" (click)="hideProfitability()" title="Hide Profitability"></i>
+                                      </div>
                                     </div>
                                   </form>
                               </div>

@@ -5,6 +5,7 @@ import { DataTableModule } from "angular2-datatable";
 
 import { SowRoutingModule } from './sow-routing.module';
 import { SowComponent } from './sow.component';
+import { SowProfitabilityComponent } from './sow-profitability/sow-profitability.component';
 
 @NgModule({
   imports: [
@@ -14,6 +15,6 @@ import { SowComponent } from './sow.component';
     ReactiveFormsModule,
     DataTableModule
   ],
-  declarations: [SowComponent]
+  declarations: [SowComponent, SowProfitabilityComponent]
 })
 export class SowModule { }
