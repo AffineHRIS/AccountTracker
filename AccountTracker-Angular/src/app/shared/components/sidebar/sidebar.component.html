@@ -4,5 +4,9 @@
             <i class="fa fa-fw fa-bank"></i>
             <span class="text-profile">{{ 'Accounts' | translate }}</span>
         </a>
+        <a [routerLink]="['/revenue']" [routerLinkActive]="['router-link-active']" class="list-group-item">
+            <i class="fa fa-fw fa-dollar"></i>
+            <span class="text-profile">{{ 'Revenue' | translate }}</span>
+        </a>
     </ul>
 </nav>

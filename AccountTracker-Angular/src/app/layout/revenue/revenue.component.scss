@@ -1,0 +1,121 @@
+.cus-table {
+    margin-top: 4px;
+    thead {
+        th {
+            font-size: 12px;
+            font-weight:bold;
+            text-align: center;
+            text-transform: uppercase;
+        }
+    }
+    tbody {
+        tr {
+            font-size: 12px;
+            text-align: center;
+        }
+    }
+}
+
+.page-header {
+    background: #aaaaaa;
+    margin: 1px;
+    padding: 2px;
+    .form-control {
+        padding: 0.3rem 0.75rem;
+    }
+}
+label {
+    font-size: 12px;
+    font-weight: bold;
+    margin: 7px 0;
+}
+.cus-12 {
+    margin-top:10px;
+    border-bottom: 1px solid #eee;
+    input.form-control, button {
+        font-size: 12px;
+        padding: 0rem 0.5rem;
+        height: 30px;
+    }
+    button {
+        font-size: 16px;
+        padding: 0rem 0.5rem;
+        height: 30px;
+    }
+    input[type="date"].form-control {
+      padding: 5px;
+    }
+}
+
+.filtersfixedwidth {
+  width: 15%;
+  float:left;
+}
+table {
+    margin-top: 4px;
+    thead {
+        th {
+            font-size: 12px;
+            text-align: center;
+            paddding:3px !important;
+        }
+    }
+    tbody {
+        tr {
+            font-size: 13px;
+            text-align: center;
+        }
+    }
+}
+.breadcrumbs {
+    font-weight: bold;
+    margin: 5px 10px 15px;
+    font-size: 14px;
+    color: #0275d8;
+    span.gt-symbol {
+        color: #0275d8;
+    }
+    span.bc-text.active {
+        color: #014c8c;
+    }
+}
+div.horizontal-pipe-line {
+    height: 2px;
+    background-color: #bbb;
+    opacity: 0.5;
+}
+.card-block {
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 0;
+}
+.pagination {
+    border: 1px solid;
+    float: right !important;
+    text-align: right;
+}
+.float-sm-right {
+    position: relative;
+}
+.highcharts-legend {
+  position: absolute !important;
+left: 0px;
+width: 100px;
+}
+.search-label {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    width: auto;
+    padding: 5px 15px;
+    color: #000;
+    float: left;
+}
+.search-input {
+    width: 136px;
+    height: 30px;
+    font-size: 12px;
+    margin: 8px -5px;
+    border-radius: 0;
+    float:left
+}

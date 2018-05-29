@@ -5,6 +5,7 @@ var accountAPI = require('./accountAPI');
 var msaAPI = require('./msaAPI');
 var sowAPI = require('./sowAPI');
 var profitabilityAPI = require('./profitabilityAPI');
+var revenueAPI = require('./revenueAPI');
 
 var access = require('./var.js');
 access.myFunc1();
@@ -29,6 +30,7 @@ app.use('/', accountAPI);
 app.use('/', msaAPI);
 app.use('/', sowAPI);
 app.use('/', profitabilityAPI);
+app.use('/', revenueAPI);
 app.use('/uploads', express.static('uploads/'));
 
 // Main route sends our HTML file

@@ -32,6 +32,7 @@ export class SowComponent implements OnInit {
   sowId : any;
   enablePr = false;
   showPr = false;
+  sowDetails : any;
 
   @ViewChild(DataTable) SOWTable: DataTable;
 
@@ -108,6 +109,7 @@ export class SowComponent implements OnInit {
     //this.SOWDetails.Account_Name = this.accountName;
     this.addSOWForm = true;
     this.sowId = this.getSOWId(sow);
+    this.sowDetails = sow;
     this.enablePr = true;
 
   }

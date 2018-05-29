@@ -10,6 +10,7 @@ import { ProfitabilityService } from '../../../../shared';
 export class SowProfitabilityComponent implements OnChanges  {
 
   @Input() sowId: any;
+  @Input() sowDetails: any;
   @Input() profitabilityDetails:any;
   @Input() disableInputs:any;
   @Output() newEmergency = new EventEmitter();
@@ -26,6 +27,8 @@ export class SowProfitabilityComponent implements OnChanges  {
   index: any = -1;
   profitabilityList:any;
   addFlag:boolean = false;
+  showSummary:boolean = false;
+  hideType:boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -42,24 +45,28 @@ export class SowProfitabilityComponent implements OnChanges  {
 
     this.profitabilityService.getProfitabilityList(this.sowId).subscribe(
         (response) =>{
-            this.profitabilityDetails = response[0].data;
-            this.sowValue = parseInt(this.profitabilityDetails[0].SOW_Value);
             this.totalCost = 0;
-            this.currency = this.profitabilityDetails[0].SOW_Currency;
-
+            this.profitabilityDetails = response[0].data;
             if( this.profitabilityDetails && this.profitabilityDetails.length ){
+
+                //this.sowValue = parseInt(this.profitabilityDetails[0].SOW_Value);
+                //this.currency = this.profitabilityDetails[0].SOW_Currency;
+                this.sowValue = parseInt(this.sowDetails.SOW_Value);
+                this.currency = this.sowDetails.SOW_Currency;
 
                 for(var i = 0; i < this.profitabilityDetails.length; i++)
                 {
                   this.totalCost += parseInt(this.profitabilityDetails[i].Profitability_Cost);
                   this.addProfitability(this.profitabilityDetails[i]);
                 }
+                this.showSummary = true;
                 this.profitability = this.sowValue - this.totalCost;
                 var val = (1-(this.totalCost/this.sowValue))*100;
               this.profitabilityPercent = parseFloat(val.toFixed(2));
             }
              else {
                 //this.addProfitability(undefined);
+                this.showSummary = false;
             }
         },
         (error) => {
@@ -119,7 +126,7 @@ export class SowProfitabilityComponent implements OnChanges  {
           'Profitability_No_Of_Weeks': new FormControl({value:   '', disabled: false},Validators.required),
           'Profitability_Rate':new FormControl({value:   '', disabled: false},Validators.required),
           'Profitability_Additional': new FormControl({value:   '', disabled: false}),
-          'Profitability_Cost': new FormControl({value:   '', disabled: false},Validators.required)
+          'Profitability_Cost': new FormControl({value:   '', disabled: true},Validators.required)
           }
           this.profitabilities.push(this.fb.group( prData ));
           this.index = this.profitabilities.length;
@@ -127,8 +134,6 @@ export class SowProfitabilityComponent implements OnChanges  {
 
     }
 
-
-      //this.profitabilities.length > 1? this.disableClose = false : this.disableClose = true;
   }
 
  hideForm(i): boolean {
@@ -159,8 +164,9 @@ export class SowProfitabilityComponent implements OnChanges  {
     {
       this.showSaveWarning = true;
       this.index = i+1;
-      row.enable();
+      //row.enable();
       //row.controls.Profitability_Cost.disable();
+      this.onResourceChange(row);
     }
   }
 
@@ -170,6 +176,36 @@ export class SowProfitabilityComponent implements OnChanges  {
     this.index = -1;
     this.createForm();
     this.getProfitabilityDetails();
+  }
+
+  onResourceChange(row) {
+    console.log(row);
+    if(row.controls.Profitability_Resource_Level.value == 'others')
+    {
+      console.log(row);
+      row.controls.Profitability_Resource_Type.reset();
+      row.controls.Profitability_Resource_Location.reset();
+      row.controls.Profitability_No_Of_Resources.reset();
+      row.controls.Profitability_No_Of_Weeks.reset();
+      row.controls.Profitability_Rate.reset();
+      row.controls.Profitability_Additional.reset();
+
+      row.enable();
+      row.controls.Profitability_Resource_Location.disable();
+      row.controls.Profitability_Resource_Location.disable();
+      row.controls.Profitability_No_Of_Resources.disable();
+      row.controls.Profitability_No_Of_Weeks.disable();
+      row.controls.Profitability_Rate.disable();
+      row.controls.Profitability_Additional.disable();
+      this.hideType = true;
+    }
+    else
+    {
+      row.enable();
+      row.controls.Profitability_Resource_Type.reset();
+      row.controls.Profitability_Cost.disable();
+      this.hideType = false;
+    }
   }
 
   deleteProfitability(row,index): void {
@@ -218,12 +254,16 @@ export class SowProfitabilityComponent implements OnChanges  {
       if (row.valid) {
           this.index = -1;
           //this.addFlag = false;
-          var sowHours = row.value.Profitability_Resource_Location == 'onsite'?  this.profitabilityDetails[0].SOW_Max_Onsite_Hours_Per_Day : this.profitabilityDetails[0].SOW_Max_Offshore_Hours_Per_Day;
+          //var sowHours = row.value.Profitability_Resource_Location == 'onsite'?  this.profitabilityDetails[0].SOW_Max_Onsite_Hours_Per_Day : this.profitabilityDetails[0].SOW_Max_Offshore_Hours_Per_Day;
+          var sowHours = row.value.Profitability_Resource_Location == 'onsite'?  this.sowDetails.SOW_Max_Onsite_Hours_Per_Day : this.sowDetails.SOW_Max_Offshore_Hours_Per_Day;
           var additional = row.value.Profitability_Additional ? row.value.Profitability_Additional : 0;
           var cost = ((row.value.Profitability_No_Of_Resources)*(row.value.Profitability_No_Of_Weeks*5)*(sowHours)*(row.value.Profitability_Rate)) + additional;
           var modelData = row.value;//Object.assign({}, model);
           modelData.SOW_Id = this.sowId;
-          //modelData.Profitability_Cost = cost; //Commenting automatic calculation based on recent discussion.
+          if(row.value.Profitability_Resource_Level != 'others')
+          {
+            modelData.Profitability_Cost = cost;
+          }
 
           modelData.Profitability_Additional = row.value.Profitability_Additional ? row.value.Profitability_Additional : 0;
 
@@ -250,8 +290,7 @@ export class SowProfitabilityComponent implements OnChanges  {
           }
           else
           {
-            //modelData.SOW_Id = this.SOWDetails.SOW_Id;
-            this.profitabilityService.updateProfitabilityDetails(modelData) // Updating existing MSA.
+            this.profitabilityService.updateProfitabilityDetails(modelData) // Updating existing record.
             .subscribe(
                 (response) =>{
                     let body = response.json();

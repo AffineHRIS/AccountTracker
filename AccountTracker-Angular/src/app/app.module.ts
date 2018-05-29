@@ -18,7 +18,8 @@ import {
     MsaService,
     SowService,
     FileUploadService,
-    ProfitabilityService
+    ProfitabilityService,
+    RevenueService
 } from './shared';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: Http) {
@@ -55,6 +56,7 @@ export function HttpLoaderFactory(http: Http) {
       SowService,
       FileUploadService,
       ProfitabilityService,
+      RevenueService,
       AuthenticateService,
       PasswordService,
       Globals,

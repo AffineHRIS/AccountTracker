@@ -148,7 +148,7 @@
                                               <div class="row">
                                                   <label class="col-md-5">Max Onsite hours per day<span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
-                                                      <input class="form-control" type="text"  name="SOW_Max_Onsite_Hours_Per_Day" [ngModel]="SOWDetails.SOW_Max_Onsite_Hours_Per_Day "  #SOWMaxOnsiteHoursPerDay="ngModel"  placeholder="Max hours per day"  />
+                                                      <input class="form-control" type="text"  name="SOW_Max_Onsite_Hours_Per_Day" [ngModel]="SOWDetails.SOW_Max_Onsite_Hours_Per_Day "  #SOWMaxOnsiteHoursPerDay="ngModel"  placeholder="Max hours per day" required />
                                                   </div>
                                               </div>
                                           </div>
@@ -176,7 +176,7 @@
                                               <div class="row">
                                                   <label class="col-md-5">Max Offshore hours per day<span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
-                                                      <input class="form-control" type="text"  name="SOW_Max_Offshore_Hours_Per_Day" [ngModel]="SOWDetails.SOW_Max_Offshore_Hours_Per_Day "  #SOWMaxOffshoreHoursPerDay="ngModel"  placeholder="Max hours per day"  />
+                                                      <input class="form-control" type="text"  name="SOW_Max_Offshore_Hours_Per_Day" [ngModel]="SOWDetails.SOW_Max_Offshore_Hours_Per_Day "  #SOWMaxOffshoreHoursPerDay="ngModel"  placeholder="Max hours per day" required />
                                                   </div>
                                               </div>
                                           </div>
@@ -237,7 +237,7 @@
                                                   <label class="col-md-5">Upload SOW Document<span class="pull-right"> : </span> </label>
                                                   <div class="col-md-3">
                                                     <input type="hidden" class="form-control" name="SOW_Document" [(ngModel)]="SOWDetails.SOW_Document" #SOWFile="ngModel" />
-                                                    <input type="file" (change)="fileChangeEvent($event)" />
+                                                    <input type="file" multiple (change)="fileChangeEvent($event)" />
                                                   </div>
                                                   <div class="col-md-3">
                                                     <button type="button" (click)="upload('SOW_Document')">Attach</button> <i class="fa-thumbs-up fa green" [hidden]="SOW_thumbHidden"> </i>
@@ -260,7 +260,7 @@
                                     <hr>
                                     <div class="row">
                                       <div class="col-md-11">
-                                        <app-sow-profitability *ngIf = "showPr" [sowId] ="sowId" [profitabilityDetails] = "profitabilityDetails" [disableInputs]="disableInputs" (newEmergency)="getEmergencyDetails($event)"></app-sow-profitability>
+                                        <app-sow-profitability *ngIf = "showPr" [sowId] ="sowId" [sowDetails] = "sowDetails" [disableInputs]="disableInputs" (newEmergency)="getEmergencyDetails($event)"></app-sow-profitability>
                                       </div>
                                       <div class="col-md-1">
                                           <i class="fa fa-times rm-work-exp" aria-hidden="true" [hidden]= "!showPr" (click)="hideProfitability()" title="Hide Profitability"></i>

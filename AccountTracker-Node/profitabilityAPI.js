@@ -30,11 +30,11 @@ access.myFunc1();
       var id = req.query.SOWId;
       var sqlQuery = '';
 
-        sqlQuery = `SELECT *
-                      FROM accountstracker.sow s
-                      right join accountstracker.profitability p ON p.SOW_Id = s.SOW_Id
-                      WHERE s.SOW_Id =`+id
-
+        // sqlQuery = `SELECT *
+        //               FROM accountstracker.sow s
+        //               right join accountstracker.profitability p ON p.SOW_Id = s.SOW_Id
+        //               WHERE s.SOW_Id =`+id
+        sqlQuery = `SELECT * FROM accountstracker.profitability where SOW_Id =`+id
 
       con.query(sqlQuery, function(err, rows, fields) {
         if (!err){
@@ -110,12 +110,12 @@ access.myFunc1();
       .then(function(response) {
         //result['data'] = req.body;
         result['result'] = 'success';
-        result['message'] = 'Profitability deleted successfully!';
+        result['message'] = 'Cost deleted successfully!';
         res.setHeader('Content-Type', 'application/json');
         res.status(200).send( result );
       })
       .catch(function (err) {
-          console.log('Error while deleting Profitability: %s', err.toString());
+          console.log('Error while deleting Cost: %s', err.toString());
           res.status(400).send(err.toString());
       });
 

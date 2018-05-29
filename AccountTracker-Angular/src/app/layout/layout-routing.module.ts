@@ -27,7 +27,11 @@ const routes: Routes = [
             {
                 path: 'sow',
                 loadChildren: './accounts/sow/sow.module#SowModule'
-            }
+            },
+            {
+                path: 'revenue',
+                loadChildren: './revenue/revenue.module#RevenueModule'
+            },
         ]
     }
 ];

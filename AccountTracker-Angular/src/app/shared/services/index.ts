@@ -7,3 +7,4 @@ export * from './msa/msa.service';
 export * from './sow/sow.service';
 export * from './fileupload/fileupload.service';
 export * from './profitability/profitability.service';
+export * from './revenue.report/revenue.report.service';

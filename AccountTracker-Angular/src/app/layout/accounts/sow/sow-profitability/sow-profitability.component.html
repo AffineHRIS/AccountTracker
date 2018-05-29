@@ -4,9 +4,9 @@
 
 <form [formGroup]="profitabilityForm" novalidate class="tab-info tab-content">
 
-  <div class="col-12">
-    <div class="row">
-      <div class="col md-2">
+  <div class="col-12" >
+    <div class="row" *ngIf = "showSummary">
+      <!-- <div class="col md-2">
 
       </div>
       <div class="col-md-10">
@@ -28,7 +28,86 @@
           </div>
         </div>
 
+      </div> -->
+
+
+      <div class="col-md-12">
+        <div class = "single-disp">
+          <div class="row">
+            <div class="col-md-4 disp-title">
+              SOW VALUE
+            </div>
+            <div class="col-md-6 disp-text">
+              {{sowValue | currency:currency:true:'1.2-2'}}
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-5 green-top">
+            <div class= "border-bottom">
+              ESTIMATED
+            </div>
+            <div class="row">
+              <div class="col-md-6 inner-content text-center border-right">
+                <div class= "margin-bottom title">COST</div>
+                <div class="c100 p50 small orange">
+                    <span>50%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div><span class = "disp_vals">{{totalCost | currency:currency:true:'1.2-2'}}</span>
+              </div>
+              <div class="col-md-6">
+                <div class= "margin-bottom title">PROFITABILITY</div>
+                <div class="c100 p50 small">
+                    <span>50%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div><span class = "disp_vals">{{profitability | currency:currency:true:'1.2-2'}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-5 violet-top">
+            <div class= "border-bottom">
+              ACTUAL
+            </div>
+            <div class="row">
+              <div class="col-md-6 inner-content text-center border-right">
+                <div class= "margin-bottom title">COST</div>
+                <div class="c100 p50 small orange">
+                    <span>50%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div><span class = "disp_vals">{{totalCost | currency:currency:true:'1.2-2'}}</span>
+              </div>
+              <div class="col-md-6">
+                <div class= "margin-bottom title">PROFITABILITY</div>
+                <div class="c100 p50 small">
+                    <span>50%</span>
+                    <div class="slice">
+                        <div class="bar"></div>
+                        <div class="fill"></div>
+                    </div>
+                </div><span class = "disp_vals">{{profitability | currency:currency:true:'1.2-2'}}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="arrow-estimated"></div>
+          <div class="arrow-actual"></div>
+        </div>
+
       </div>
+
     </div>
     <table class="table table-bordered table-striped cus-table" [mfData]="SOWList" #mf="mfDataTable" [mfRowsOnPage]="10">
         <thead class="thead-inverse">
@@ -47,7 +126,7 @@
         <tbody formArrayName="profitabilities" class="well well-lg">
              <tr *ngFor="let profitability of profitabilities.controls; let i=index" [formGroupName]="i">
                  <td>
-                   <select class="form-control"  name="Profitability_Resource_Level" formControlName="Profitability_Resource_Type" >
+                   <select class="form-control"  name="Profitability_Resource_Level" formControlName="Profitability_Resource_Level" (change) = "onResourceChange(profitability)" >
                        <option value="sba">SBA</option>
                        <option value="ba">BA</option>
                        <option value="consultant">Consultant</option>
@@ -59,12 +138,13 @@
                    </select>
                  </td>
                  <td>
-                   <select class="form-control"  name="Profitability_Resource_Type" formControlName="Profitability_Resource_Level" >
+                   <select class="form-control"  name="Profitability_Resource_Type" formControlName="Profitability_Resource_Type" >
                        <!-- <option *ngFor="let rel of dataStream.relations" value="{{ rel.Map_Relative_Id }}">
                            {{ rel.Map_Relative_Name }}
                        </option> -->
-                       <option value="billed">Billed</option>
-                       <option value="buffer">Buffer</option>
+                       <option [hidden] = "hideType" value="billed">Billed</option>
+                       <option [hidden] = "hideType" value="buffer">Buffer</option>
+                       <option [hidden] = "!hideType" value="travel">Travel</option>
                    </select>
                  </td>
                  <td>
