@@ -64,7 +64,7 @@
                                                   <label class="col-md-5"> MSA Name  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
                                                       <!-- <select class="form-control"  name="Account_Id" [ngModel]="SOWDetails.Account_Id "  #AccountId="ngModel"  required ></select> -->
-                                                      <label>{{MSAName}}</label>
+                                                      <label>{{SOWDetails.MSA_Name}}</label>
                                                   </div>
                                               </div>
                                           </div>
@@ -124,7 +124,7 @@
                                               <div class="row">
                                                   <label class="col-md-5"> No of Persons  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
-                                                      <input class="form-control" type="number"  name="SOW_No_Of_Persons" [ngModel]="SOWDetails.SOW_No_Of_Persons "  #SOWNoOfPersons="ngModel"  placeholder="Number of Persons"  />
+                                                      <input class="form-control" type="number"  name="SOW_No_Of_Persons" [ngModel]="SOWDetails.SOW_No_Of_Persons "  #SOWNoOfPersons="ngModel"  placeholder="Number of Persons" required />
                                                   </div>
                                               </div>
                                           </div>
@@ -132,7 +132,7 @@
                                               <div class="row">
                                                   <label class="col-md-5">Onsite Count  <span class="pull-right"> : </span> </label>
                                                   <div class="col-md-6">
-                                                      <input class="form-control" type="text"  name="SOW_Onsite_Count" [ngModel]="SOWDetails.SOW_Onsite_Count "  #SOWOnsiteCount="ngModel"  placeholder="Onsite Count"  />
+                                                      <input class="form-control" type="text"  name="SOW_Onsite_Count" [ngModel]="SOWDetails.SOW_Onsite_Count "  #SOWOnsiteCount="ngModel"  placeholder="Onsite Count" required />
                                                   </div>
                                               </div>
                                           </div>

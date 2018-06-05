@@ -1,22 +1,22 @@
 import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Http, Response} from "@angular/http";
 import 'rxjs/add/operator/map';
-import { routerTransition } from '../../router.animations';
+import { routerTransition } from '../../../../router.animations';
 import * as Highcharts from 'highcharts';
-import { Filter} from "./revenue.interface";
+//import { Filter} from "./revenue.interface";
 import { utils, write, WorkBook } from 'xlsx';
 import { saveAs } from 'file-saver';
 
 import { DataTable, DataTableResource } from 'angular-4-data-table';
-import {  RevenueService } from '../../shared';
+import {  RevenueService } from '../../../../shared';
 
 @Component({
-    selector: 'app-revenue',
-    templateUrl: './revenue.component.html',
-    styleUrls: ['./revenue.component.scss'],
+    selector: 'app-actual-revenue',
+    templateUrl: './actual.component.html',
+    styleUrls: ['./actual.component.scss'],
     animations: [routerTransition()]
 })
-export class RevenueComponent implements OnInit {
+export class ActualRevenueComponent implements OnInit {
 
      origDetails:any = [];
      isData: boolean = false;
@@ -39,59 +39,59 @@ export class RevenueComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getRevenueReport();
+        //this.getRevenueReport();
     }
 
     getRevenueReport() {
         // check if model is valid
-        this.origDetails = [];
-        this.isData =  false;
-        this.totalRevenue = 0;
-        this.totalUSD = 0;
-        this.totalINR = 0;
-        this.totalGBP = 0;
-        var from = (new Date(this.startDate)).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
-        var to = (new Date(this.endDate)).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
-        if(new Date(this.startDate) < new Date(this.endDate))
-        {
-          this.revenueService.getRevenueReport({start_date: from, end_date : to})
-              .subscribe(
-                  (response) =>{
-                      // let body = response.json();
-                      let body = response;
-
-                      this.origDetails = body[0].data;
-                      for (var ele in this.origDetails)
-                      {
-                        switch(this.origDetails[ele].SOW_Currency)
-                        {
-                          case 'USD':
-                            this.totalUSD+= this.origDetails[ele].SOW_Est_Revenue;
-                            break;
-                          case 'INR':
-                            this.totalINR+= this.origDetails[ele].SOW_Est_Revenue;
-                            break;
-                          case 'GBP':
-                            this.totalGBP+= this.origDetails[ele].SOW_Est_Revenue;
-                            break;
-                          default:
-                            this.totalUSD+= this.origDetails[ele].SOW_Est_Revenue;
-                            break;
-                        }
-
-                      }
-                      this.totalRevenue = this.totalUSD+(this.totalINR/this.USD_INR)+(this.totalGBP/this.USD_GBP);
-                      this.isData = this.origDetails[0].SOW_Id ? true : false;
-                      // this.Designation_Name = body[0].data[0].Designation_Name;
-                      // this.listArray =  body[0].data;
-                      // this.noValue = false;
-                  },
-                  (error) => console.log(error)
-              );
-        }
-        else {
-          alert("'From' date should be less than 'To' date");
-        }
+        // this.origDetails = [];
+        // this.isData =  false;
+        // this.totalRevenue = 0;
+        // this.totalUSD = 0;
+        // this.totalINR = 0;
+        // this.totalGBP = 0;
+        // var from = (new Date(this.startDate)).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
+        // var to = (new Date(this.endDate)).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
+        // if(new Date(this.startDate) < new Date(this.endDate))
+        // {
+        //   this.revenueService.getRevenueReport({start_date: from, end_date : to})
+        //       .subscribe(
+        //           (response) =>{
+        //               // let body = response.json();
+        //               let body = response;
+        //
+        //               this.origDetails = body[0].data;
+        //               for (var ele in this.origDetails)
+        //               {
+        //                 switch(this.origDetails[ele].SOW_Currency)
+        //                 {
+        //                   case 'USD':
+        //                     this.totalUSD+= this.origDetails[ele].SOW_Est_Revenue;
+        //                     break;
+        //                   case 'INR':
+        //                     this.totalINR+= this.origDetails[ele].SOW_Est_Revenue;
+        //                     break;
+        //                   case 'GBP':
+        //                     this.totalGBP+= this.origDetails[ele].SOW_Est_Revenue;
+        //                     break;
+        //                   default:
+        //                     this.totalUSD+= this.origDetails[ele].SOW_Est_Revenue;
+        //                     break;
+        //                 }
+        //
+        //               }
+        //               this.totalRevenue = this.totalUSD+(this.totalINR/this.USD_INR)+(this.totalGBP/this.USD_GBP);
+        //               this.isData = this.origDetails[0].SOW_Id ? true : false;
+        //               // this.Designation_Name = body[0].data[0].Designation_Name;
+        //               // this.listArray =  body[0].data;
+        //               // this.noValue = false;
+        //           },
+        //           (error) => console.log(error)
+        //       );
+        // }
+        // else {
+        //   alert("'From' date should be less than 'To' date");
+        // }
 
     }
 

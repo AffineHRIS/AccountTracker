@@ -99,7 +99,6 @@ export class MsaComponent implements OnInit {
   editMSA(msa) {
     console.log(msa);
     this.MSADetails = msa;
-    this.MSADetails.Account_Name = this.accountName;
     this.addMSAForm = true;
 
   }

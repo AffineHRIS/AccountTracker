@@ -1,0 +1,175 @@
+<div [@routerTransition]>
+    <!-- <app-page-header [heading]="'Reports'" [icon]="'fa-table'"></app-page-header> -->
+    <div class="row">
+        <div class="col col-xl-12 col-lg-12">
+            <div class="mb-12">
+                <!-- <div class="card-header"> Reports > Educational Qualification Details</div> -->
+
+
+                
+                <div class="card-block card">
+                    <div class="col-md-12 cus-12">
+                        <form novalidate #f="ngForm" >
+                        <div class="form-group">
+                            <div class="row">
+                                <label class="col-md-1"> From <span class="pull-right"> : </span> </label>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control" name="startDate" [ngModel]="startDate | date: 'yyyy-MM-dd'"
+                                        (ngModelChange)="startDate=$event" #from="ngModel" required>
+                                </div>
+                                <label class="col-md-1"> To <span class="pull-right"> : </span> </label>
+                                <div class="col-md-2">
+                                    <input type="date" class="form-control" name="endDate" [ngModel]="endDate | date: 'yyyy-MM-dd'"
+                                        (ngModelChange)="endDate=$event" #to="ngModel" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <button type="submit" class="btn btn-default btn-success" (click) = "getRevenueReport()"> Filter <i class="fa fa-filter"> </i> </button>
+                                </div>
+                                <div class="col-md-3">
+                                    <button class="btn btn-default export-excel affine-blue pull-right" (click)="fileDownload(allData)">Download <i class="fa fa-download"></i></button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="row card-block" *ngIf = "isData">
+                              <div class="col-md-4 ">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <label for="USD_INR">1 USD EQUALS</label>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <input class="form-control"  name="USD_INR"   #USDINR="ngModel" [(ngModel)]="USD_INR" (change) = "onCurrencyChange($event)" />
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label for="USD_INR">INR</label>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-4 ">
+                                <div class="row">
+                                  <div class="col-md-4">
+                                    <label for="USD_GBP">1 USD EQUALS</label>
+                                  </div>
+                                  <div class="col-md-3">
+                                    <input class="form-control"  name="USD_GBP"   #USDGBP="ngModel" [(ngModel)]="USD_GBP" (change) = "onCurrencyChange($event)" />
+                                  </div>
+                                  <div class="col-md-3">
+                                    <label for="USD_GBP">GBP</label>
+                                  </div>
+                                </div>
+
+                              </div>
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <hr />
+                    <!-- <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div #DesignationCount></div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="col-6">
+                            <div #sourceOfHire style="display:none"></div>
+                          </div>
+                        </div>
+                    </div> -->
+                    <div class="row" *ngIf = "isData">
+                      <div class="col-md-12">
+                        <div class = "single-disp">
+                          <div class="row">
+                            <div class="col-md-4 disp-title">
+                              TOTAL ESTIMATED REVENUE
+                            </div>
+                            <div class="col-md-4 disp-text">
+                              {{totalRevenue | currency:currency:true:'1.2-2'}}
+                            </div>
+
+
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" style="background:#f7f7f7" >
+                        <div class="col-12">
+                              <!-- <button class="btn btn-default export-excel affine-blue pull-right" (click)="fileDownload()">Export <i class="fa fa-download"></i></button> -->
+                              <!-- <div class="row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-2 ">
+                                  <div class="row">
+                                    <div class="col-md-5">
+                                      <label for="USD_INR">1 INR(₹)=</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                      <input class="form-control"  name="USD_INR"   #USDINR="ngModel" [(ngModel)]="USD_INR" (change) = "onCurrencyChange($event)" />
+                                    </div>
+                                    <div class="col-md-3">
+                                      <label for="USD_INR">USD($)</label>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="col-md-2 ">
+                                  <div class="form-group">
+                                  <div class="row">
+                                    <div class="col-md-6">
+                                      <label for="USD_GBP">GBP TO USD</label>
+                                    </div>
+                                    <div class="col-md-5">
+                                      <input class="form-control"  name="USD_GBP"   #USDGBP="ngModel" [(ngModel)]="USD_GBP" (change) = "onCurrencyChange($event)" />
+                                    </div>
+                                  </div>
+                                </div>
+
+                                </div>
+                              </div> -->
+
+                          <table class="table table-bordered table-striped cus-table" [mfData]="origDetails" #mf="mfDataTable" [mfRowsOnPage]="10">
+                              <thead class="thead-inverse">
+                                  <tr>
+                                      <th>S.No</th>
+                                      <th><mfDefaultSorter by = "Account_Name">Account Name</mfDefaultSorter></th>
+                                      <th>MSA NAME</th>
+                                      <th>SOW NAME </th>
+                                      <th> SOW START DATE </th>
+                                      <th> SOW END DATE </th>
+                                      <th> ESTIMATED SOW REVENUE </th>
+
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                   <tr *ngFor="let revenue of mf.data;let i = index">
+                                       <td> {{i+1}} </td>
+                                       <td>{{ revenue.Account_Name }}</td>
+                                       <td> {{ revenue.MSA_Name }} </td>
+                                       <td> {{ revenue.SOW_Name }} </td>
+                                       <td> {{ revenue.SOW_Start_Date | date: 'mediumDate'}} </td>
+                                       <td> {{ revenue.SOW_End_Date | date: 'mediumDate'}} </td>
+                                       <td> {{ revenue.SOW_Est_Revenue | currency:revenue.SOW_Currency:true:'1.2-2'}} </td>
+
+                                   </tr>
+                              </tbody>
+                              <tbody *ngIf = "!isData">
+                                <tr>
+                                  <td colspan = "7" style="text-align:center;">No Data</td>
+                                </tr>
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                    <td colspan="7">
+                                        <mfBootstrapPaginator [rowsOnPageSet]="[10,20,30]"></mfBootstrapPaginator>
+                                    </td>
+                                </tr>
+                                </tfoot>
+                          </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

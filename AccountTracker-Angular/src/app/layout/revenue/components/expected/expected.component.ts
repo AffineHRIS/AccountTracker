@@ -1,22 +1,22 @@
 import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Http, Response} from "@angular/http";
 import 'rxjs/add/operator/map';
-import { routerTransition } from '../../router.animations';
+import { routerTransition } from '../../../../router.animations';
 import * as Highcharts from 'highcharts';
-import { Filter} from "./revenue.interface";
+
 import { utils, write, WorkBook } from 'xlsx';
 import { saveAs } from 'file-saver';
 
 import { DataTable, DataTableResource } from 'angular-4-data-table';
-import {  RevenueService } from '../../shared';
+import {  RevenueService } from '../../../../shared';
 
 @Component({
-    selector: 'app-revenue',
-    templateUrl: './revenue.component.html',
-    styleUrls: ['./revenue.component.scss'],
+    selector: 'app-expected-revenue',
+    templateUrl: './expected.component.html',
+    styleUrls: ['./expected.component.scss'],
     animations: [routerTransition()]
 })
-export class RevenueComponent implements OnInit {
+export class ExpectedRevenueComponent implements OnInit {
 
      origDetails:any = [];
      isData: boolean = false;
@@ -26,8 +26,14 @@ export class RevenueComponent implements OnInit {
      totalINR:number = 0;
      totalGBP:number = 0;
      totalUSD:number = 0;
-     startDate = new Date(new Date().getTime() - ( 30 * 24 * 60 * 60 * 1000 )).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
-     endDate = (new Date()).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
+     months = [];
+     years = [];
+     //startDate = new Date(new Date().getTime() - ( 30 * 24 * 60 * 60 * 1000 )).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
+     //endDate = (new Date()).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
+     filterMonth:number = new Date().getMonth();
+     filterYear:number = new Date().getFullYear();
+
+
 
     @ViewChild(DataTable) accountsTable: DataTable;
     constructor(public el: ElementRef,
@@ -39,7 +45,20 @@ export class RevenueComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.initializeFilters();
         this.getRevenueReport();
+    }
+
+    initializeFilters() {
+
+      this.months = [{"value":3,"name": "Apr"},{"value":4,"name": "May"},{"value":5,"name": "Jun"},{"value":6, "name": "Jul"},{"value":7,"name": "Aug"},{"value":8,"name": "Sep"},{"value":9,"name": "Oct"},{"value":10,"name": "Nov"},{"value":11,"name": "Dec"},{"value":0,"name": "Jan"},{"value":1,"name": "Feb"},{"value":2,"name": "Mar"}];
+      var currYear = new Date().getFullYear();
+      var prevYear = currYear-1;
+      var nextYear = currYear+1;
+      var prevText = (prevYear).toString()+ "-"+currYear.toString().slice(-2);
+      var curText = (currYear).toString()+ "-"+nextYear.toString().slice(-2);
+      this.years = [{"value":prevYear,"name": prevText},{"value":currYear,"name": curText}];
+
     }
 
     getRevenueReport() {
@@ -50,10 +69,15 @@ export class RevenueComponent implements OnInit {
         this.totalUSD = 0;
         this.totalINR = 0;
         this.totalGBP = 0;
-        var from = (new Date(this.startDate)).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
-        var to = (new Date(this.endDate)).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
-        if(new Date(this.startDate) < new Date(this.endDate))
-        {
+        var firstDay = new Date(this.filterYear, this.filterMonth, 1);
+        var lastDay = new Date(this.filterYear, parseInt(this.filterMonth.toString()) + 1 , 0);
+        
+        var from = (new Date(firstDay)).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
+        var to = (new Date(lastDay)).toLocaleDateString('ko-KR').replace(new RegExp('. ', 'g'),'-').replace('.','');
+
+        // if(new Date(this.startDate) < new Date(this.endDate))
+        // {
+
           this.revenueService.getRevenueReport({start_date: from, end_date : to})
               .subscribe(
                   (response) =>{
@@ -81,17 +105,20 @@ export class RevenueComponent implements OnInit {
 
                       }
                       this.totalRevenue = this.totalUSD+(this.totalINR/this.USD_INR)+(this.totalGBP/this.USD_GBP);
-                      this.isData = this.origDetails[0].SOW_Id ? true : false;
+                      if(this.origDetails)
+                      {
+                          this.isData = this.origDetails[0].SOW_Id ? true : false;
+                      }
                       // this.Designation_Name = body[0].data[0].Designation_Name;
                       // this.listArray =  body[0].data;
                       // this.noValue = false;
                   },
                   (error) => console.log(error)
               );
-        }
-        else {
-          alert("'From' date should be less than 'To' date");
-        }
+        // }
+        // else {
+        //   alert("'From' date should be less than 'To' date");
+        // }
 
     }
 

@@ -74,6 +74,16 @@ label {
     input[type="date"].form-control {
       padding: 5px;
     }
+    select.form-control {
+        font-size: 12px;
+        padding: 0rem 0.5rem;
+        height: 30px;
+    }
+    select.form-control:disabled {
+        background-color: #fff;
+        border-color: #fff;
+        -webkit-appearance: none;
+    }
 }
 
 .filtersfixedwidth {
